@@ -13,8 +13,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 export class NavBarComponent implements OnInit {
 
 
-
-
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -22,7 +20,9 @@ export class NavBarComponent implements OnInit {
 
   openLoginDialog(): void {
     const dialogRef = this.dialog.open(LoginFormComponent, {
-      width: '250px'
+      height: '600px',
+      width: '400px',
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {

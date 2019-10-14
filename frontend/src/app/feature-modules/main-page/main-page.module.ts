@@ -6,6 +6,7 @@ import { ContentComponent } from './components/content/content.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainPageRoutingModule } from './main-page-routing.module';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,14 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
   ],
   imports: [
     CommonModule,
-    MainPageRoutingModule
+    MainPageRoutingModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    LoginFormComponent
+  ],
+  providers: [
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ]
 })
 export class MainPageModule { }
