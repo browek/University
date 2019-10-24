@@ -1,3 +1,21 @@
-<p>
-  Logowanie
-</p>
+<div class="label">
+  <p>
+    Logowanie
+  </p>
+  <mat-icon class="x" aria-hidden="false" aria-label="Example home icon" (click)="onNoClick()">clear</mat-icon>
+</div>
+
+<div class="content">
+  <div class="icon" >
+  <mat-icon aria-hidden="false" aria-label="Example home icon">account_box</mat-icon>
+</div>
+  <mat-form-field>
+    <input matInput placeholder="Login">
+  </mat-form-field>
+  <mat-icon aria-hidden="false" aria-label="Example home icon">lock</mat-icon>
+  <mat-form-field>
+    <input matInput placeholder="Hasło">
+  </mat-form-field>
+</div>
+
+

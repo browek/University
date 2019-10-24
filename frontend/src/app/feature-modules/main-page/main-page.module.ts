@@ -6,7 +6,7 @@ import { ContentComponent } from './components/content/content.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MainPageRoutingModule } from './main-page-routing.module';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatIconModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,10 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/d
   imports: [
     CommonModule,
     MainPageRoutingModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   entryComponents: [
     LoginFormComponent

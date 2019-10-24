@@ -1,0 +1,16 @@
+.content {
+  display: grid;
+  grid-template-columns: 50px 300px;
+  align-items: center;
+}
+.icon {
+  display: inline-block;
+}
+.label {
+  display: grid;
+  grid-template-columns: 300px 50px;
+}
+.x {
+  font-size: 2em;
+  cursor: pointer;
+}

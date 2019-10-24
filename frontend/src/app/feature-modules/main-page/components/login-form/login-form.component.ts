@@ -13,6 +13,8 @@ export interface DialogData {
 })
 export class LoginFormComponent implements OnInit {
 
+  hide = true;
+
   constructor(
     public dialogRef: MatDialogRef<LoginFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
