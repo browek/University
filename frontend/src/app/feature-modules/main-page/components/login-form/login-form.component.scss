@@ -14,3 +14,25 @@
   font-size: 2em;
   cursor: pointer;
 }
+.zaloguj {
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  button {
+    // background-color: rgba(9, 255, 0, 0.137);
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+
+.other-options{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  text-align: center;
+  .ask {
+    font-size: .7em;
+  }
+}
+
+
