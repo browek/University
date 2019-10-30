@@ -24,9 +24,5 @@ export class NavBarComponent implements OnInit {
       width: '400px',
       data: {}
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
   }
 }

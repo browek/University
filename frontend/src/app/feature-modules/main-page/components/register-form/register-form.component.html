@@ -1,6 +1,6 @@
 <div class="label">
   <p>
-    Logowanie
+    Rejestracja
   </p>
   <mat-icon class="x" aria-hidden="false" aria-label="Example home icon" (click)="onNoClick()">clear</mat-icon>
 </div>
@@ -23,11 +23,10 @@
 
 <div class="other-options">
   <div class="ask">
-    Nie masz konta?
+    Masz już konto?
   </div>
   <div class="ask">
-    Zapomniałeś hasła?
   </div>
-  <button mat-raised-button color="warn" (click)=openRegisterDialog()>Rejestracja</button>
-  <button mat-raised-button color="warn">Przypomnij hasło</button>
+  <button mat-raised-button color="warn" (click)=openLoginDialog()>Zaloguj</button>
+
 </div>
