@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoginFormComponent } from '../login-form/login-form.component';
+import { IDialogService } from '../../service/dialog.service';
 
 @Component({
   selector: 'app-register-form',
@@ -11,22 +12,19 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<RegisterFormComponent>
+    public dialogRef: MatDialogRef<RegisterFormComponent>,
+    @Inject('IDialogService') private readonly dialogService: IDialogService
     ) { }
 
   ngOnInit() {
   }
 
-  onNoClick(): void {
+  closeDialog(): void {
     this.dialogRef.close();
   }
 
   openLoginDialog(): void {
-    this.dialogRef.close();
-    const loginDialogRef = this.dialog.open(LoginFormComponent, {
-      height: '600px',
-      width: '400px',
-      data: {}
-    });
+    this.closeDialog();
+    this.dialogService.openLoginDialog();
   }
 }

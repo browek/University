@@ -1,3 +1,4 @@
+import { DialogService } from './service/dialog.service.impl';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainPageRoutingModule } from './main-page-routing.module';
@@ -42,7 +43,7 @@ import {
     RegisterFormComponent
   ],
   providers: [
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: 'IDialogService', useClass: DialogService}
   ]
 })
 export class MainPageModule { }
