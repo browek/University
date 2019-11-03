@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { DialogService } from './service/dialog.service.impl';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -36,7 +37,8 @@ import {
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     LoginFormComponent,

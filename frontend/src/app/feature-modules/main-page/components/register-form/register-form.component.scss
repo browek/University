@@ -1,20 +1,26 @@
+.label {
+  display: grid;
+  grid-template-columns: 8fr 1fr;
+  font-size: 1.5em;
+  .x {
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+}
 .content {
   display: grid;
-  grid-template-columns: 50px 300px;
+  grid-template-columns: 1fr 8fr;
   align-items: center;
 }
 .icon {
   display: inline-block;
 }
-.label {
+.col-2 {
   display: grid;
-  grid-template-columns: 300px 50px;
-  font-size: 1.5em;
+  grid-template-columns:1fr 1fr;
+  grid-column-gap: 10px;
 }
-.x {
-  font-size: 1.5em;
-  cursor: pointer;
-}
+
 .zaloguj {
   align-items: center;
   text-align: center;
@@ -35,5 +41,6 @@
     font-size: .7em;
   }
 }
+
 
 

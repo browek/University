@@ -11,7 +11,7 @@ export class DialogService implements IDialogService {
 
   openRegisterDialog() {
     this.dialog.open(RegisterFormComponent, {
-      width: '450px'
+      width: '500px'
     });
   }
 

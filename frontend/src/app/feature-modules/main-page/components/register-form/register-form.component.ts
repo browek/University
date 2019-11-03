@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoginFormComponent } from '../login-form/login-form.component';
@@ -10,6 +11,8 @@ import { IDialogService } from '../../service/dialog.service';
 })
 export class RegisterFormComponent implements OnInit {
 
+  registerForm: FormGroup;
+
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<RegisterFormComponent>,
@@ -17,6 +20,9 @@ export class RegisterFormComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.registerForm = new FormGroup({
+
+    });
   }
 
   closeDialog(): void {
