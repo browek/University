@@ -21,7 +21,11 @@
   grid-column-gap: 10px;
 }
 
-.zaloguj {
+.wideForm {
+  width: 100%;
+}
+
+.register {
   align-items: center;
   text-align: center;
   padding: 30px;
@@ -42,5 +46,8 @@
   }
 }
 
-
+.errorInfo {
+  font-size: .6em;
+  color: red;
+}
 

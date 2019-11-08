@@ -4,49 +4,102 @@
   </p>
   <mat-icon class="x" aria-hidden="false" aria-label="Example home icon" (click)="closeDialog()">clear</mat-icon>
 </div>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="content">
+    <mat-icon aria-hidden="false" aria-label="Example home icon">email</mat-icon>
+    <div>
+      <mat-form-field class="wideForm">
+        <input matInput placeholder="E-mail" formControlName="email">
+      </mat-form-field>
+      <div class="errorInfo"
+        *ngIf="registerForm.get('email').errors && registerForm.get('email').errors.required && registerForm.get('email').dirty">
+        Pole wymagane
+      </div>
+      <div class="errorInfo"
+        *ngIf="registerForm.get('email').errors && registerForm.get('email').errors.email && registerForm.get('email').dirty">
+        To nie jest e-mail
+      </div>
+    </div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">lock</mat-icon>
+    <div class="col-2">
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Hasło" formControlName="password">
+        </mat-form-field>
+        <div class="errorInfo"
+          *ngIf="registerForm.get('password').errors && registerForm.get('password').errors.required && registerForm.get('password').dirty">
+          Pole wymagane
+        </div>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Powtórz hasło" formControlName="rePassword">
+        </mat-form-field>
+        <div class="errorInfo"
+          *ngIf="registerForm.get('rePassword').errors && registerForm.get('rePassword').errors.required && registerForm.get('rePassword').dirty">
+          Pole wymagane
+        </div>
+      </div>
+      <br><br>
+    </div>
 
-<div class="content">
-  <mat-icon aria-hidden="false" aria-label="Example home icon">email</mat-icon>
-  <mat-form-field>
-    <input matInput placeholder="E-mail">
-  </mat-form-field>
-  <mat-icon aria-hidden="false" aria-label="Example home icon">lock</mat-icon>
-  <div class="col-2">
-  <mat-form-field>
-    <input matInput placeholder="Hasło">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Powtórz hasło">
-  </mat-form-field>
-  <br><br>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">account_box</mat-icon>
+    <div class="col-2">
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Imię" formControlName="firstName">
+        </mat-form-field>
+        <div class="errorInfo"
+          *ngIf="registerForm.get('firstName').errors && registerForm.get('firstName').errors.required && registerForm.get('firstName').dirty">
+          Pole wymagane
+        </div>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Nazwisko" formControlName="surName">
+        </mat-form-field>
+        <div class="errorInfo"
+          *ngIf="registerForm.get('surName').errors && registerForm.get('surName').errors.required && registerForm.get('surName').dirty">
+          Pole wymagane
+        </div>
+      </div>
+    </div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">layers</mat-icon>
+    <div>
+      <mat-form-field class="wideForm">
+        <input matInput placeholder="Uczelnia" formControlName="college">
+      </mat-form-field>
+      <div class="errorInfo"
+        *ngIf="registerForm.get('college').errors && registerForm.get('college').errors.required && registerForm.get('college').dirty">
+        Pole wymagane
+      </div>
+    </div>
+
+    <mat-icon aria-hidden="false" aria-label="Example home icon">bookmark</mat-icon>
+    <div>
+      <mat-form-field class="wideForm">
+        <input matInput placeholder="Wydział" formControlName="department">
+      </mat-form-field>
+      <div class="errorInfo"
+        *ngIf="registerForm.get('department').errors && registerForm.get('department').errors.required && registerForm.get('department').dirty">
+        Pole wymagane
+      </div>
+    </div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon>
+    <div>
+      <mat-form-field class="wideForm">
+        <input matInput placeholder="Kierunek" formControlName="direction">
+      </mat-form-field>
+      <div class="errorInfo"
+        *ngIf="registerForm.get('direction').errors && registerForm.get('direction').errors.required && registerForm.get('direction').dirty">
+        Pole wymagane
+      </div>
+    </div>
   </div>
-
-  <mat-icon aria-hidden="false" aria-label="Example home icon">account_box</mat-icon>
-  <div class="col-2">
-  <mat-form-field>
-    <input matInput placeholder="Imię">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput placeholder="Nazwisko">
-  </mat-form-field>
+  <div class="register">
+    <button mat-raised-button color="primary">Rejestracja</button>
   </div>
-  <mat-icon aria-hidden="false" aria-label="Example home icon">layers</mat-icon>
-  <mat-form-field>
-    <input matInput placeholder="Uczelnia">
-  </mat-form-field>
-  <mat-icon aria-hidden="false" aria-label="Example home icon">bookmark</mat-icon>
-  <mat-form-field>
-    <input matInput placeholder="Wydział">
-  </mat-form-field>
-  <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon>
-  <mat-form-field>
-    <input matInput placeholder="Kierunek">
-  </mat-form-field>
-</div>
-<div class="zaloguj">
-  <button mat-raised-button color="primary">Zaloguj</button>
-</div>
-
+</form>
 <div class="other-options">
   <div class="ask">
     Posiadasz konto?

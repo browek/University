@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { LoginFormComponent } from '../login-form/login-form.component';
@@ -21,8 +21,19 @@ export class RegisterFormComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = new FormGroup({
-
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, Validators.required),
+      rePassword: new FormControl(null, Validators.required),
+      firstName: new FormControl(null, Validators.required),
+      surName: new FormControl(null, Validators.required),
+      college: new FormControl(null, Validators.required),
+      department: new FormControl(null, Validators.required),
+      direction: new FormControl(null, Validators.required),
     });
+  }
+
+  onSubmit() {
+    console.log(this.registerForm);
   }
 
   closeDialog(): void {
