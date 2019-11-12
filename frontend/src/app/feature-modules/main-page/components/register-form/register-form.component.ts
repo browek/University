@@ -12,6 +12,9 @@ import { IDialogService } from '../../service/dialog.service';
 export class RegisterFormComponent implements OnInit {
 
   registerForm: FormGroup;
+  hidingPassword = true;
+  hidingRePassword = true;
+
 
   constructor(
     public dialog: MatDialog,
@@ -29,6 +32,7 @@ export class RegisterFormComponent implements OnInit {
       college: new FormControl(null, Validators.required),
       department: new FormControl(null, Validators.required),
       direction: new FormControl(null, Validators.required),
+      role: new FormControl(true, Validators.required)
     });
   }
 

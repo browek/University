@@ -24,8 +24,12 @@
     <div class="col-2">
       <div>
         <mat-form-field>
-          <input matInput placeholder="Hasło" formControlName="password">
+          <input matInput placeholder="Hasło" formControlName="password" name="password" type="password"
+            [type]="hidingPassword ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hidingPassword= !hidingPassword">
+            {{hidingPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
+
         <div class="errorInfo"
           *ngIf="registerForm.get('password').errors && registerForm.get('password').errors.required && registerForm.get('password').dirty">
           Pole wymagane
@@ -33,7 +37,10 @@
       </div>
       <div>
         <mat-form-field>
-          <input matInput placeholder="Powtórz hasło" formControlName="rePassword">
+          <input matInput placeholder="Powtórz hasło" formControlName="rePassword" name="rePassword" type="password"
+            [type]="hidingRePassword ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hidingRePassword= !hidingRePassword">
+            {{hidingRePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
         <div class="errorInfo"
           *ngIf="registerForm.get('rePassword').errors && registerForm.get('rePassword').errors.required && registerForm.get('rePassword').dirty">
@@ -75,8 +82,8 @@
       </div>
     </div>
 
-    <mat-icon aria-hidden="false" aria-label="Example home icon">bookmark</mat-icon>
-    <div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role == true">bookmark</mat-icon>
+    <div *ngIf="registerForm.value.role == true">
       <mat-form-field class="wideForm">
         <input matInput placeholder="Wydział" formControlName="department">
       </mat-form-field>
@@ -85,8 +92,8 @@
         Pole wymagane
       </div>
     </div>
-    <mat-icon aria-hidden="false" aria-label="Example home icon">work</mat-icon>
-    <div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role == true">work</mat-icon>
+    <div *ngIf="registerForm.value.role == true">
       <mat-form-field class="wideForm">
         <input matInput placeholder="Kierunek" formControlName="direction">
       </mat-form-field>
@@ -96,6 +103,12 @@
       </div>
     </div>
   </div>
+
+  <mat-radio-group aria-label="Select an option" class="col-2" formControlName="role">
+    <mat-radio-button [value]="true">Student</mat-radio-button>
+    <mat-radio-button [value]="false">Wykładowca</mat-radio-button>
+  </mat-radio-group>
+
   <div class="register">
     <button mat-raised-button color="primary">Rejestracja</button>
   </div>

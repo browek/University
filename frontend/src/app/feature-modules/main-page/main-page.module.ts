@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DialogService } from './service/dialog.service.impl';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,8 @@ import {
   MatIconModule,
   MatFormFieldModule,
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatRadioModule
 } from '@angular/material';
 import {
   LoginFormComponent,
@@ -38,7 +39,9 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule
   ],
   entryComponents: [
     LoginFormComponent,
