@@ -1,12 +1,11 @@
+import { MockedHttpExampleService } from './../../../../shared/service/mocked-http-example.service';
+import { LoginService, LoginResponseDto } from './login.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { RegisterFormComponent } from '../register-form/register-form.component';
 import { IDialogService } from '../../service/dialog.service';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+
 
 @Component({
   selector: 'app-login-form',
@@ -16,17 +15,26 @@ export interface DialogData {
 export class LoginFormComponent implements OnInit {
 
   hide = true;
+  loginForm: FormGroup;
 
   constructor(
     public dialog: MatDialog,
+    private mockedHttpExampleService: MockedHttpExampleService,
     public dialogRef: MatDialogRef<LoginFormComponent>,
-    public registerDialogRef: MatDialogRef<RegisterFormComponent>,
+    private loginService : LoginService,
     @Inject('IDialogService') private readonly dialogService: IDialogService
-    ) {}
+    ) {
+      this.mockedHttpExampleService.exampleSecuredHttpCall(undefined)
+        .subscribe();
+    }
 
 
 
   ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, Validators.required),
+    });
   }
 
   closeDialog(): void {
@@ -36,5 +44,11 @@ export class LoginFormComponent implements OnInit {
   openRegisterDialog(): void {
     this.closeDialog();
     this.dialogService.openRegisterDialog();
+  }
+
+  onSubmit() {
+    const { email, password } = this.loginForm.controls;
+    this.loginService.login(email.value, password.value)
+      .subscribe();
   }
 }

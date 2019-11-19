@@ -1,8 +1,8 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
-import { LoginFormComponent } from '../login-form/login-form.component';
 import { IDialogService } from '../../service/dialog.service';
+
 
 @Component({
   selector: 'app-register-form',
@@ -32,7 +32,7 @@ export class RegisterFormComponent implements OnInit {
       college: new FormControl(null, Validators.required),
       department: new FormControl(null, Validators.required),
       direction: new FormControl(null, Validators.required),
-      role: new FormControl(true, Validators.required)
+      role: new FormControl(false, Validators.required)
     });
   }
 

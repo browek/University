@@ -83,7 +83,7 @@
     </div>
 
     <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role == true">bookmark</mat-icon>
-    <div *ngIf="registerForm.value.role == true">
+    <div *ngIf="registerForm.value.role == false">
       <mat-form-field class="wideForm">
         <input matInput placeholder="Wydział" formControlName="department">
       </mat-form-field>
@@ -93,7 +93,7 @@
       </div>
     </div>
     <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role == true">work</mat-icon>
-    <div *ngIf="registerForm.value.role == true">
+    <div *ngIf="registerForm.value.role == false">
       <mat-form-field class="wideForm">
         <input matInput placeholder="Kierunek" formControlName="direction">
       </mat-form-field>
@@ -105,8 +105,8 @@
   </div>
 
   <mat-radio-group aria-label="Select an option" class="col-2" formControlName="role">
-    <mat-radio-button [value]="true">Student</mat-radio-button>
-    <mat-radio-button [value]="false">Wykładowca</mat-radio-button>
+    <mat-radio-button [value]="false">Student</mat-radio-button>
+    <mat-radio-button [value]="true">Wykładowca</mat-radio-button>
   </mat-radio-group>
 
   <div class="register">

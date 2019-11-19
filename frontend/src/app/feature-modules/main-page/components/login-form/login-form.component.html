@@ -4,23 +4,23 @@
   </p>
   <mat-icon class="x" aria-hidden="false" aria-label="Example home icon" (click)="closeDialog()">clear</mat-icon>
 </div>
-
-<div class="content">
-  <div class="icon" >
-  <mat-icon aria-hidden="false" aria-label="Example home icon">email</mat-icon>
-</div>
-  <mat-form-field>
-    <input matInput placeholder="E-mail">
-  </mat-form-field>
-  <mat-icon aria-hidden="false" aria-label="Example home icon">lock</mat-icon>
-  <mat-form-field>
-    <input matInput placeholder="Hasło">
-  </mat-form-field>
-</div>
-<div class="zaloguj">
-  <button mat-raised-button color="primary">Zaloguj</button>
-</div>
-
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="content">
+    <div class="icon">
+      <mat-icon aria-hidden="false" aria-label="Example home icon">email</mat-icon>
+    </div>
+    <mat-form-field>
+      <input matInput placeholder="E-mail" formControlName="email">
+    </mat-form-field>
+    <mat-icon aria-hidden="false" aria-label="Example home icon">lock</mat-icon>
+    <mat-form-field>
+      <input matInput placeholder="Hasło" formControlName="password" name="password" type="password">
+    </mat-form-field>
+  </div>
+  <div class="zaloguj">
+    <button mat-raised-button color="primary">Zaloguj</button>
+  </div>
+</form>
 <div class="other-options">
   <div class="ask">
     Nie masz konta?
