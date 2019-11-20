@@ -1,0 +1,14 @@
+.body {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+}
+
+.content{
+  top: 0;
+  .outlet {
+    display: grid;
+    background-color: rgb(235, 235, 235);
+    min-height: 600px;
+  }
+}
+
