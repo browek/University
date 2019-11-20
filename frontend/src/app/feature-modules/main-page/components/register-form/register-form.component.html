@@ -82,8 +82,8 @@
       </div>
     </div>
 
-    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role == true">bookmark</mat-icon>
-    <div *ngIf="registerForm.value.role == false">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role  === false">bookmark</mat-icon>
+    <div *ngIf="registerForm.value.role === false">
       <mat-form-field class="wideForm">
         <input matInput placeholder="Wydział" formControlName="department">
       </mat-form-field>
@@ -92,8 +92,8 @@
         Pole wymagane
       </div>
     </div>
-    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role == true">work</mat-icon>
-    <div *ngIf="registerForm.value.role == false">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role  === false">work</mat-icon>
+    <div *ngIf="registerForm.value.role === false">
       <mat-form-field class="wideForm">
         <input matInput placeholder="Kierunek" formControlName="direction">
       </mat-form-field>

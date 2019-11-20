@@ -19,13 +19,10 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private mockedHttpExampleService: MockedHttpExampleService,
     public dialogRef: MatDialogRef<LoginFormComponent>,
     private loginService : LoginService,
     @Inject('IDialogService') private readonly dialogService: IDialogService
     ) {
-      this.mockedHttpExampleService.exampleSecuredHttpCall(undefined)
-        .subscribe();
     }
 
 

@@ -1,8 +1,8 @@
+import { RegisterService } from './register.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { IDialogService } from '../../service/dialog.service';
-
 
 @Component({
   selector: 'app-register-form',
@@ -10,17 +10,16 @@ import { IDialogService } from '../../service/dialog.service';
   styleUrls: ['./register-form.component.scss']
 })
 export class RegisterFormComponent implements OnInit {
-
   registerForm: FormGroup;
   hidingPassword = true;
   hidingRePassword = true;
 
-
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<RegisterFormComponent>,
+    private registerService: RegisterService,
     @Inject('IDialogService') private readonly dialogService: IDialogService
-    ) { }
+  ) {}
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -38,6 +37,28 @@ export class RegisterFormComponent implements OnInit {
 
   onSubmit() {
     console.log(this.registerForm);
+    const {
+      firstName,
+      surName,
+      password,
+      email,
+      role,
+      department,
+      direction,
+      college
+    } = this.registerForm.controls;
+    this.registerService
+      .register(
+        firstName.value,
+        surName.value,
+        password.value,
+        email.value,
+        role.value,
+        department.value,
+        direction.value,
+        college.value
+      )
+      .subscribe();
   }
 
   closeDialog(): void {
