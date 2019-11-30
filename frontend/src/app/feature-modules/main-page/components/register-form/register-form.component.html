@@ -29,10 +29,17 @@
           <mat-icon matSuffix (click)="hidingPassword= !hidingPassword">
             {{hidingPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
-
         <div class="errorInfo"
           *ngIf="registerForm.get('password').errors && registerForm.get('password').errors.required && registerForm.get('password').dirty">
           Pole wymagane
+        </div>
+        <div class="errorInfo"
+          *ngIf="registerForm.get('password').errors && registerForm.get('password').errors.minlength && registerForm.get('password').dirty">
+          Wymagane minimum 6 znaków
+        </div>
+        <div class="errorInfo"
+          *ngIf="isPasswordWrong === true">
+          Hasła muszą być identyczne
         </div>
       </div>
       <div>
@@ -82,8 +89,8 @@
       </div>
     </div>
 
-    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role  === false">bookmark</mat-icon>
-    <div *ngIf="registerForm.value.role === false">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role  === 'STUDENT'">bookmark</mat-icon>
+    <div *ngIf="registerForm.value.role === 'STUDENT'">
       <mat-form-field class="wideForm">
         <input matInput placeholder="Wydział" formControlName="department">
       </mat-form-field>
@@ -92,8 +99,8 @@
         Pole wymagane
       </div>
     </div>
-    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role  === false">work</mat-icon>
-    <div *ngIf="registerForm.value.role === false">
+    <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="registerForm.value.role  === 'STUDENT'">work</mat-icon>
+    <div *ngIf="registerForm.value.role === 'STUDENT'">
       <mat-form-field class="wideForm">
         <input matInput placeholder="Kierunek" formControlName="direction">
       </mat-form-field>
@@ -105,8 +112,8 @@
   </div>
 
   <mat-radio-group aria-label="Select an option" class="col-2" formControlName="role">
-    <mat-radio-button [value]="false">Student</mat-radio-button>
-    <mat-radio-button [value]="true">Wykładowca</mat-radio-button>
+    <mat-radio-button value="STUDENT">Student</mat-radio-button>
+    <mat-radio-button value="TEACHER">Wykładowca</mat-radio-button>
   </mat-radio-group>
 
   <div class="register">
