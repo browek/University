@@ -14,13 +14,14 @@ export class RegisterFormComponent implements OnInit {
   hidingPassword = true;
   hidingRePassword = true;
   isPasswordWrong = false;
+  errorMessage = '';
 
   constructor(
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<RegisterFormComponent>,
     private registerService: RegisterService,
     @Inject('IDialogService') private readonly dialogService: IDialogService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -37,37 +38,46 @@ export class RegisterFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerForm);
+    this.errorMessage = '';
     if (this.registerForm.controls.password.value
-                          ===
+      ===
       this.registerForm.controls.rePassword.value) {
-    this.isPasswordWrong = false;
-    const {
-      firstName,
-      surName,
-      password,
-      email,
-      role,
-      department,
-      direction,
-      college
-    } = this.registerForm.controls;
-    this.registerService
-      .register(
-        firstName.value,
-        surName.value,
-        password.value,
-        email.value,
-        role.value,
-        department.value,
-        direction.value,
-        college.value
-      )
-      .subscribe();
-  } else {
-    this.isPasswordWrong = true;
+      this.isPasswordWrong = false;
+      const {
+        firstName,
+        surName,
+        password,
+        email,
+        role,
+        department,
+        direction,
+        college
+      } = this.registerForm.controls;
+      this.registerService
+        .register(
+          firstName.value,
+          surName.value,
+          password.value,
+          email.value,
+          role.value,
+          department.value,
+          direction.value,
+          college.value
+        )
+        .subscribe(
+          data => console.log('success', data),
+          error => {
+            if (error.error.errorMessage === 'USER_ALREADY_EXISTS') {
+              this.errorMessage = 'Użytkownik o podanym adresie e-mail już istnieje';
+            } else {
+              this.errorMessage = 'Wystąpił błąd: ' + error.error.errorMessage;
+            }
+          }
+        );
+    } else {
+      this.isPasswordWrong = true;
+    }
   }
-}
   closeDialog(): void {
     this.dialogRef.close();
   }
@@ -75,8 +85,5 @@ export class RegisterFormComponent implements OnInit {
   openLoginDialog(): void {
     this.closeDialog();
     this.dialogService.openLoginDialog();
-  }
-  wrongPassword() {
-
   }
 }
