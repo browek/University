@@ -18,7 +18,10 @@
     </mat-form-field>
   </div>
   <div class="zaloguj">
-    <button mat-raised-button color="primary" routerLink="/user-panel">Zaloguj</button>
+    <button mat-raised-button color="primary">Zaloguj</button>
+    <div class="errorInfo errorMessage">
+      {{errorMessage}}
+    </div>
   </div>
 </form>
 <div class="other-options">

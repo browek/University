@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { IDialogService } from '../../service/dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -17,6 +18,7 @@ export class RegisterFormComponent implements OnInit {
   errorMessage = '';
 
   constructor(
+    public router: Router,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<RegisterFormComponent>,
     private registerService: RegisterService,
@@ -65,12 +67,16 @@ export class RegisterFormComponent implements OnInit {
           college.value
         )
         .subscribe(
-          data => console.log('success', data),
+          data => {
+            console.log('success', data);
+            this.router.navigate(['/user-panel']);
+            this.closeDialog();
+          },
           error => {
-            if (error.error.errorMessage === 'USER_ALREADY_EXISTS') {
+            if (error.error.error === 'USER_ALREADY_EXISTS') {
               this.errorMessage = 'Użytkownik o podanym adresie e-mail już istnieje';
             } else {
-              this.errorMessage = 'Wystąpił błąd: ' + error.error.errorMessage;
+              this.errorMessage = 'Wystąpił błąd: ' + error.error.error;
             }
           }
         );
