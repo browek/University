@@ -3,4 +3,23 @@
   top: 0;
   background-color: rgb(218, 220, 255);
   color: white;
+  grid-template-columns: 1fr 6fr 1fr;
+  grid-template-rows: 50px;
+  :first-child {
+    text-align: left;
+    font-size: 1rem;
+  }
+  text-align: center;
+}
+
+.item {
+  padding: 10px;
+}
+
+.link {
+  background-color: rgb(209, 211, 255);
+  cursor: pointer;
+}
+.link:hover {
+  background-color: rgb(201, 195, 255);
 }

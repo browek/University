@@ -23,7 +23,7 @@ export class LoginFormComponent implements OnInit {
     public router: Router,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<LoginFormComponent>,
-    private loginService : LoginService,
+    private loginService: LoginService,
     @Inject('IDialogService') private readonly dialogService: IDialogService
     ) {
     }

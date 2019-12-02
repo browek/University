@@ -1,3 +1,4 @@
+import { LoginService } from './../main-page/components/login-form/login.service';
 import { UserPanelRoutingModule } from './user-panel-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
