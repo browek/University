@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { RegisterFormComponent } from '../components/register-form/register-form.component';
 import { LoginFormComponent } from '../components/login-form/login-form.component';
 import { IDialogService } from './dialog.service';
-import { RemindPasswordComponent } from '../components/remind-password/remind-password.component';
+import { ResetPasswordComponent } from '../components/reset-password/reset-password.component';
 
 @Injectable()
 export class DialogService implements IDialogService {
@@ -18,16 +18,16 @@ export class DialogService implements IDialogService {
 
   openLoginDialog() {
     this.dialog.open(LoginFormComponent, {
-      width: '450px',
+      width: '400px',
       data: {}
     });
   }
 
-  openRemindDialog() {
-    this.dialog.open(RemindPasswordComponent, {
-      width: '450px',
+  openResetDialog() {
+    this.dialog.open(ResetPasswordComponent, {
+      width: '400px',
       data: {}
     });
   }
 }
-}
+

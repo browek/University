@@ -20,7 +20,7 @@ import {
   ContentComponent,
   FooterComponent
 } from './components';
-import { RemindPasswordComponent } from './components/remind-password/remind-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import { RemindPasswordComponent } from './components/remind-password/remind-pas
     FooterComponent,
     NavBarComponent,
     RegisterFormComponent,
-    RemindPasswordComponent
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +48,7 @@ import { RemindPasswordComponent } from './components/remind-password/remind-pas
   entryComponents: [
     LoginFormComponent,
     RegisterFormComponent,
-    RemindPasswordComponent
+    ResetPasswordComponent
   ],
   providers: [
     {provide: 'IDialogService', useClass: DialogService}

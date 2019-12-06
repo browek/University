@@ -25,8 +25,7 @@ export class LoginFormComponent implements OnInit {
     public dialogRef: MatDialogRef<LoginFormComponent>,
     private loginService: LoginService,
     @Inject('IDialogService') private readonly dialogService: IDialogService
-    ) {
-    }
+    ) { }
 
 
 
@@ -46,9 +45,9 @@ export class LoginFormComponent implements OnInit {
     this.dialogService.openRegisterDialog();
   }
 
-  openRemindDialog(): void {
+  openResetDialog(): void {
     this.closeDialog();
-    this.dialogService.openRemindDialog();
+    this.dialogService.openResetDialog();
   }
 
 
