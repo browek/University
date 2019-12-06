@@ -46,13 +46,18 @@ export class LoginFormComponent implements OnInit {
     this.dialogService.openRegisterDialog();
   }
 
+  openRemindDialog(): void {
+    this.closeDialog();
+    this.dialogService.openRemindDialog();
+  }
+
+
   onSubmit() {
     this.errorMessage = '';
     const { email, password } = this.loginForm.controls;
     this.loginService.login(email.value, password.value)
       .subscribe(
         data => {
-          console.log('success', data);
           this.router.navigate(['/user-panel']);
           this.closeDialog();
         },

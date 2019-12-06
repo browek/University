@@ -3,16 +3,21 @@
   color: White;
   height: 100%;
   background-color: rgb(203, 206, 255);
+  :nth-child(2) {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.1) 0%,rgb(169, 176, 255) 10%);
+  }
   .item {
-    margin: 1px;
     padding: 10px;
-    background-color: rgb(169, 176, 253);
+    background-color: rgb(169, 176, 255);
     cursor: pointer;
-  }:hover {
-    background-image: linear-gradient(0deg, rgb(0, 162, 255), yellow);
+
+  }
+  .item:hover {
+    background-image: linear-gradient( rgba(130, 140, 255, 0.253) 0%,rgba(130, 140, 255, 0.253) 10%);
   }
   .logo {
     top: 0;
+    padding: 10px;
     font-size: 1.6rem;
     font-weight: 500;
     background-color: rgb(194, 197, 255);

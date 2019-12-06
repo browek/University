@@ -6,9 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   { path: '', component: UserContentComponent,
     children: [
-      {
-        path: '', component: ProfileComponent
-      }
+      { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { path: 'profile', component: ProfileComponent    }
     ]
   },
 ];

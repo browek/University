@@ -90,6 +90,10 @@ export class LoginService {
     return localStorage.getItem(ACCESS_TOKEN_KEY);
   }
 
+  getUserDetails() {
+    return JSON.parse(localStorage.getItem(USER_DATA_KEY));
+  }
+
   isAuthorized(): boolean {
     return !!this.getAccessToken();
   }
@@ -104,7 +108,8 @@ export class LoginService {
 
   getUserAuthorities(): { authority: string }[] {
     const userData: DetailsResponseDto = JSON.parse(localStorage.getItem(USER_DATA_KEY));
-
     return !!userData ? userData.authorities : [];
   }
+
+
 }

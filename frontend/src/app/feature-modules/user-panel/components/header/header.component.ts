@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  userDetails = '';
+
 
   constructor(
     private loginService: LoginService,
@@ -15,6 +17,12 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    setTimeout(() => {this.getDetails(); } , 100);
+  }
+
+  getDetails() {
+    this.userDetails = this.loginService.getUserDetails();
+    console.log(this.userDetails);
   }
 
   logout () {
