@@ -1,12 +1,14 @@
 .body {
   display: grid;
   grid-template-columns: 1fr 7fr;
+  background-color: rgb(240, 241, 255);
 }
 
 .content{
   top: 0;
   .outlet {
-    display: grid;
+    // display: grid;
+    top: 0;
     background-color: rgb(240, 241, 255);
     min-height: 600px;
   }

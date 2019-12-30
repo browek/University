@@ -1,0 +1,22 @@
+<div class="content">
+  <mat-accordion *ngIf="isTeacher()">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title >
+          Dodaj Grupę
+        </mat-panel-title>
+        <mat-panel-description>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="addGroupForm" (ngSubmit)="addGroup()">
+      <mat-form-field>
+        <input matInput formControlName="name" placeholder="Nazwa grupy">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Dodaj</button>
+      </form>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</div>

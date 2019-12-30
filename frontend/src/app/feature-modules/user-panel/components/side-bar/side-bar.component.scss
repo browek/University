@@ -6,6 +6,9 @@
   :nth-child(2) {
     background-image: linear-gradient( rgba(0, 0, 0, 0.1) 0%,rgb(169, 176, 255) 10%);
   }
+  :last-child {
+    background-image: linear-gradient( rgb(169, 176, 255) 90%, rgba(0, 0, 0, 0.055) 100%);
+  }
   .item {
     padding: 10px;
     background-color: rgb(169, 176, 255);
