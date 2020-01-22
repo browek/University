@@ -18,4 +18,10 @@ export interface User {
           authority: string;
       }
   ];
+  groups: [
+    {
+        id: string;
+        name: string;
+    }
+];
 }

@@ -1,3 +1,4 @@
+import { User } from './../../../../shared/model/user/user';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -23,6 +24,7 @@ export class GroupComponent implements OnInit {
   groupsList: Groups[];
   groupDetails: Groups;
   displayedColumns: string[] = ['name', 'owner', 'button'];
+  membershipGroupsList;
 
   constructor(
     private loginService: LoginService,
@@ -42,7 +44,7 @@ export class GroupComponent implements OnInit {
   }
 
   resetGroups() {
-    this.getGroups().subscribe(
+    this.getOwnGroups().subscribe(
       data => {
         this.groupsList = data;
         console.log('data = ' + data);
@@ -52,14 +54,28 @@ export class GroupComponent implements OnInit {
           console.log('error = ' + error);
         }
     );
+    this.getMembershipGroups(this.loginService.getUserDetails().id).subscribe(
+      data => {
+        this.membershipGroupsList = data.groups;
+        console.log('data = ' + data);
+        console.log(this.membershipGroupsList);
+      },
+        error => {
+          console.log('error = ' + error);
+        }
+    );
   }
 
-  getGroups(): Observable<Groups[]> {
+  getOwnGroups(): Observable<Groups[]> {
     const headers = {
       'Authorization': `Bearer ${this.accessToken}`
     };
     return this.httpClient.get<Groups[]>('http://localhost:8080/groups/own', { headers });
-}
+  }
+
+  getMembershipGroups(id): Observable<User> {
+    return this.httpClient.get<User>('http://localhost:8080/users/' + id);
+  }
 
   addGroup() {
     const body = {

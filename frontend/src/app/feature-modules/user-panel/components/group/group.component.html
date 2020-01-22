@@ -21,7 +21,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <div class="mat-elevation-z8">
+  <div class="mat-elevation-z8" *ngIf="isTeacher()">
     <table mat-table [dataSource]="groupsList">
 
       <ng-container matColumnDef="name">
@@ -32,6 +32,40 @@
       <ng-container matColumnDef="owner">
         <th mat-header-cell *matHeaderCellDef> Założyciel </th>
         <td mat-cell *matCellDef="let element"> {{element.owner.firstName}} {{element.owner.lastName}} </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Ilość członków </th>
+      <td mat-cell *matCellDef="let element" (click)=setGroupDetails(element.id)>00000</td>
+      </ng-container> -->
+
+      <ng-container matColumnDef="button">
+        <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element" >
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip color="primary" selected [routerLink]="[element.id]">Przejdź do grupy</mat-chip>
+        </mat-chip-list>
+      </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <div class="mat-elevation-z8" *ngIf="!isTeacher()">
+    <table mat-table [dataSource]="membershipGroupsList">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nazwa </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="owner">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element"> </td>
       </ng-container>
 
       <!-- <ng-container matColumnDef="quantity">
