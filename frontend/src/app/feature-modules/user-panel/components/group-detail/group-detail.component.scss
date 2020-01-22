@@ -1,7 +1,6 @@
 .content {
   display: grid;
-  // top: 50px;
-  margin: 50px;
+  // margin: 50px;
 }
 
 .header {
@@ -10,17 +9,14 @@
   margin-bottom: 20px;
 }
 
-button {
-  margin: 20px;
-}
-
-mat-form-field {
-  width: 300px;
-}
 table {
   width: 100%;
+  margin: 0;
 }
+
 mat-accordion {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+

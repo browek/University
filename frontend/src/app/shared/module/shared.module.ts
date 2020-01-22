@@ -32,7 +32,8 @@ import {
   MatChipsModule,
   MatBadgeModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -82,7 +83,8 @@ import {
     MatChipsModule,
     MatBadgeModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSnackBarModule
   ]
 })
 export class SharedModule { }

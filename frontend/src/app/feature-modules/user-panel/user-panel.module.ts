@@ -7,6 +7,7 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { UserContentComponent } from './components/user-content/user-content.component';
 import { GroupComponent } from './components/group/group.component';
+import { GroupDetailComponent } from './components/group-detail/group-detail.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { GroupComponent } from './components/group/group.component';
     SideBarComponent,
     HeaderComponent,
     UserContentComponent,
-    GroupComponent
+    GroupComponent,
+    GroupDetailComponent
   ],
   imports: [
     CommonModule,

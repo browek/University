@@ -1,7 +1,7 @@
 import { RegisterService } from './register.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { IDialogService } from '../../service/dialog.service';
 import { Router } from '@angular/router';
 
@@ -22,6 +22,7 @@ export class RegisterFormComponent implements OnInit {
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<RegisterFormComponent>,
     private registerService: RegisterService,
+    private _snackBar: MatSnackBar,
     @Inject('IDialogService') private readonly dialogService: IDialogService
   ) { }
 
@@ -69,8 +70,9 @@ export class RegisterFormComponent implements OnInit {
         .subscribe(
           data => {
             console.log('success', data);
-            this.router.navigate(['/user-panel']);
+            // this.router.navigate(['/user-panel']);
             this.closeDialog();
+            this.openSnackBar('Rejestracja przebiegła pomyślnie','');
           },
           error => {
             if (error.error.error === 'USER_ALREADY_EXISTS') {
@@ -91,5 +93,11 @@ export class RegisterFormComponent implements OnInit {
   openLoginDialog(): void {
     this.closeDialog();
     this.dialogService.openLoginDialog();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 }

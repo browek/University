@@ -1,3 +1,4 @@
+import { GroupDetailComponent } from './components/group-detail/group-detail.component';
 import { UserContentComponent } from './components/user-content/user-content.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgModule } from '@angular/core';
@@ -9,7 +10,11 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent    },
-      { path: 'group', component: GroupComponent    }
+      { path: 'group', children: [
+          { path: '', component: GroupComponent },
+          { path: ':id', component: GroupDetailComponent }
+        ]
+      }
     ]
   },
 ];

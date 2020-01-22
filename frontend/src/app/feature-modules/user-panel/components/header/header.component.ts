@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
 
   getDetails() {
     this.userDetails = this.loginService.getUserDetails();
-    console.log(this.userDetails);
   }
 
   logout () {
