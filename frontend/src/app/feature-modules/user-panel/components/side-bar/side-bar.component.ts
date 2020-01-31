@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
 
-  constructor() { }
+  userID;
+
+  constructor(
+    private loginService: LoginService,
+  ) { }
 
   ngOnInit() {
+    this.userID = this.loginService.getUserDetails().id;
   }
 
 }

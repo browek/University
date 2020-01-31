@@ -1,6 +1,6 @@
 .content {
   display: grid;
-  // margin: 50px;
+  margin: 50px;
 }
 
 .header {
@@ -12,6 +12,7 @@
 table {
   width: 100%;
   margin: 0;
+  box-shadow: 0;
 }
 
 mat-accordion {
@@ -19,4 +20,6 @@ mat-accordion {
   margin-bottom: 10px;
 }
 
-
+.mat-elevation-z8 {
+    box-shadow: none !important;
+}

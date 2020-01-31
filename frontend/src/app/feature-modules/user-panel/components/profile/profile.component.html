@@ -1,15 +1,15 @@
 <div class="content">
-<h1>Profil:</h1>
-<div class="tab">
-  <div class="item">Imię:</div>
-  <div class="item">{{userDetails.firstName}}</div>
-  <div class="item">Nazwisko:</div>
-  <div class="item">{{userDetails.lastName}}</div>
-  <div class="item">e-mail:</div>
-  <div class="item">{{userDetails.email}}</div>
-  <div class="item">Wydział:</div>
-  <div class="item">{{userDetails.department}}</div>
-  <div class="item">Uczelnia:</div>
-  <div class="item">{{userDetails.college}}</div>
-</div>
+  <h1>Profil:</h1>
+  <div class="tab" *ngIf="(profileDetails$ | async) as profileDetails">
+    <div class="item">Imię:</div>
+    <div class="item">{{profileDetails.firstName}}</div>
+    <div class="item">Nazwisko:</div>
+    <div class="item">{{profileDetails.lastName}}</div>
+    <div class="item">e-mail:</div>
+    <div class="item">{{profileDetails.email}}</div>
+    <div class="item">Wydział:</div>
+    <div class="item">{{profileDetails.department}}</div>
+    <div class="item">Uczelnia:</div>
+    <div class="item">{{profileDetails.college}}</div>
+  </div>
 </div>

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 
 export interface LoginResponseDto {
     access_token: string;
@@ -28,8 +28,8 @@ export interface DetailsResponseDto {
   authorities: [
       {
           authority: string;
-      }
-  ]
+      },
+  ];
 }
 
 const ACCESS_TOKEN_KEY = 'access_token';
@@ -44,7 +44,7 @@ export class LoginService {
     private httpClient: HttpClient
   ) { }
 
-  login (email: string, password: string): Observable<LoginResponseDto> {
+  login (email: string, password: string): Observable<DetailsResponseDto> {
     const body = new HttpParams()
       .set('username', email)
       .set('password', password)
@@ -58,7 +58,7 @@ export class LoginService {
     return this.httpClient.post<LoginResponseDto>('http://localhost:8080/oauth/token', body, { headers })
       .pipe(
         tap(this.storeAuthentication),
-        tap((loginResponse: LoginResponseDto) => this.getDetails(loginResponse.access_token).subscribe())
+        switchMap((loginResponse: LoginResponseDto) => this.getDetails(loginResponse.access_token))
       );
   }
 

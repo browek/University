@@ -1,5 +1,9 @@
+import { HttpClient } from '@angular/common/http';
+import { User } from './../../../../shared/model/user/user';
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+import { switchMap, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -8,18 +12,21 @@ import { LoginService } from 'src/app/feature-modules/main-page/components/login
 })
 export class ProfileComponent implements OnInit {
 
-  userDetails = '';
+  profileDetails$: Observable<User> = this.route.paramMap.pipe(
+    switchMap(param => this.getProfileDetails(param.get('id'))),
+    shareReplay(0)
+  );
 
   constructor(
-    private loginService: LoginService
+    private route: ActivatedRoute,
+    public httpClient: HttpClient
   ) { }
 
   ngOnInit() {
-    setTimeout(() => {this.getDetails(); } , 100);
   }
 
-  getDetails() {
-    this.userDetails = this.loginService.getUserDetails();
+  getProfileDetails(id: string): Observable<User> {
+    return this.httpClient.get<User>('http://localhost:8080/users/' + id);
   }
 
 }

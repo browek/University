@@ -8,16 +8,21 @@ import { GroupComponent } from './components/group/group.component';
 const routes: Routes = [
   { path: '', component: UserContentComponent,
     children: [
-      { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      { path: 'profile', component: ProfileComponent    },
+      // { path: '', redirectTo: 'profile', pathMatch: 'full' },
+      { path: 'profile', children: [
+        { path: ':id', component: ProfileComponent },
+        // { path: '', component: ProfileComponent },
+        ]
+      },
       { path: 'group', children: [
           { path: '', component: GroupComponent },
-          { path: ':id', component: GroupDetailComponent }
+          { path: ':id', component: GroupDetailComponent },
         ]
-      }
-    ]
-  },
+      },
+    ],
+  }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

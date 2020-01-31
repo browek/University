@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserContentComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private loginService: LoginService,
+    public router: Router,
+  ) { }
 
   ngOnInit() {
+    // const id = this.loginService.getUserDetails().id;
+    // console.log('user id = ' + id);
+    // this.router.navigate(['profile', id]);
   }
+
 
 }

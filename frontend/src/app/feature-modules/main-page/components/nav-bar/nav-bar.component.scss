@@ -3,17 +3,20 @@
   display: grid;
   grid-template-columns: 0.5fr 5fr 1fr 1fr 1fr;
   grid-template-rows: 50px;
-  background-color: rgb(138, 130, 255);
+  background-color: rgb(78, 67, 224);
   color: white;
   font-size: 1.2rem;
+  opacity: 0.9;
+  
   :first-child {
     text-align: left;
     font-size: 2rem;
-    color: black;
+    
   }
   text-align: center;
   :nth-child(n+3):hover{
     background-color: rgb(201, 195, 255);
+
   }
 }
 .item {

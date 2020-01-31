@@ -1,12 +1,10 @@
 import { MockedHttpExampleService } from './../../../../shared/service/mocked-http-example.service';
-import { LoginService, LoginResponseDto } from './login.service';
+import { LoginService, DetailsResponseDto } from './login.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDialogService } from '../../service/dialog.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-login-form',
@@ -56,8 +54,8 @@ export class LoginFormComponent implements OnInit {
     const { email, password } = this.loginForm.controls;
     this.loginService.login(email.value, password.value)
       .subscribe(
-        data => {
-          this.router.navigate(['/user-panel']);
+        (data: DetailsResponseDto) => {
+          this.router.navigate(['/user-panel/profile', data.id]);
           this.closeDialog();
         },
           error => {

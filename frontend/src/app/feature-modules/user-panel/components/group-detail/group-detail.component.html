@@ -1,8 +1,8 @@
-<div class="content">
+<div class="content"  *ngIf="(groupDetails$ | async) as groupDetails">
   <div class="header">Grupa: {{groupDetails.name}}</div>
 
-  <mat-accordion *ngIf="isTeacher()">
-    <mat-expansion-panel>
+  <mat-accordion>
+    <mat-expansion-panel *ngIf="isTeacher()">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Dodaj użytkownika do grupy
@@ -13,7 +13,7 @@
       </mat-expansion-panel-header>
 
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="usersList">
+        <table mat-table [dataSource]="usersList$ | async">
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Imię i nazwisko</th>
@@ -99,7 +99,7 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let elem">
               <mat-chip-list aria-label="Fish selection">
-                <mat-chip color="primary" selected [routerLink]="[elem.id]">Profil</mat-chip>
+                <mat-chip color="primary" selected [routerLink]="['/user-panel/profile', elem.id]">Profil</mat-chip>
               </mat-chip-list>
             </td>
           </ng-container>

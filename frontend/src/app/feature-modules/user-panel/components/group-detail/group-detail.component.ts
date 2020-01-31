@@ -4,9 +4,10 @@ import { LoginService } from './../../../main-page/components/login-form/login.s
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Groups } from 'src/app/shared/model/groups/groups-list';
+import { Observable, of, zip } from 'rxjs';
+import { Group } from 'src/app/shared/model/groups/group';
 import { MatSnackBar } from '@angular/material';
+import { switchMap, shareReplay, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-detail',
@@ -15,12 +16,28 @@ import { MatSnackBar } from '@angular/material';
 })
 export class GroupDetailComponent implements OnInit {
 
-  groupDetails: Groups;
+  groupDetails: Group = <any> { users: [] };
   displayedColumns: string[] = ['name', 'college', 'department', 'subject', 'email', 'button'];
   addUserForm: FormGroup;
   accessToken = '123';
   groupID;
-  usersList: User[];
+  usersList: User[] = [];
+  groupDetails$: Observable<Group> = this.route.paramMap.pipe(
+    switchMap(param => this.getGroupDetails(param.get('id'))),
+    shareReplay(0)
+  );
+
+  usersList$: Observable<User[]> = zip([this.groupDetails$, this.getUsersList()])
+    .pipe(
+      tap(console.log),
+      switchMap(([group, users]: [Group, User[]]): User[] => {
+        debugger
+        const userList: User[] = users.filter(el => group.users.findIndex(k => k.id === el.id) === -1);
+        
+        return userList;
+      }),
+      tap(console.log)
+    );
 
   constructor(
     private httpClient: HttpClient,
@@ -32,32 +49,18 @@ export class GroupDetailComponent implements OnInit {
   ngOnInit() {
     this.accessToken = this.loginService.getAccessToken();
 
-    this.setUsersList();
-
     this.addUserForm = new FormGroup({
       name: new FormControl(null, Validators.required),
     });
 
     this.route.paramMap.subscribe((param: Params) => {
       this.groupID = param.get('id');
-      this.setGroupDetails(param.get('id'));
       console.log(this.groupDetails.id);
     });
   }
 
-  getGroupDetails(id: string): Observable<Groups> {
-    return this.httpClient.get<Groups>('http://localhost:8080/groups/' + id);
-  }
-
-  setGroupDetails(id: string) {
-    this.getGroupDetails(id).subscribe(
-      data => {
-        this.groupDetails = data;
-      },
-        error => {
-          console.log('error = ' + error);
-        }
-    );
+  getGroupDetails(id: string): Observable<Group> {
+    return this.httpClient.get<Group>('http://localhost:8080/groups/' + id);
   }
 
   getUsersList(): Observable<User[]> {
@@ -68,6 +71,17 @@ export class GroupDetailComponent implements OnInit {
     this.getUsersList().subscribe(
       data => {
         this.usersList = data;
+      },
+        error => {
+          console.log('error = ' + error);
+        }
+    );
+  }
+
+   setGroupDetails(id: string) {
+    this.getGroupDetails(id).subscribe(
+      data => {
+        this.groupDetails = data;
       },
         error => {
           console.log('error = ' + error);

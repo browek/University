@@ -6,7 +6,7 @@ import { LoginService } from 'src/app/feature-modules/main-page/components/login
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { Groups } from 'src/app/shared/model/groups/groups-list';
+import { Group } from 'src/app/shared/model/groups/group';
 
 
 @Component({
@@ -18,11 +18,10 @@ export class GroupComponent implements OnInit {
 
   panelOpenState = false;
   accessToken = '123';
-  // groupName = '';
   addGroupForm: FormGroup;
   router: Router;
-  groupsList: Groups[];
-  groupDetails: Groups;
+  groupsList: Group[];
+  groupDetails: Group;
   displayedColumns: string[] = ['name', 'owner', 'button'];
   membershipGroupsList;
 
@@ -47,8 +46,6 @@ export class GroupComponent implements OnInit {
     this.getOwnGroups().subscribe(
       data => {
         this.groupsList = data;
-        console.log('data = ' + data);
-        console.log(this.groupsList)
       },
         error => {
           console.log('error = ' + error);
@@ -56,9 +53,7 @@ export class GroupComponent implements OnInit {
     );
     this.getMembershipGroups(this.loginService.getUserDetails().id).subscribe(
       data => {
-        this.membershipGroupsList = data.groups;
-        console.log('data = ' + data);
-        console.log(this.membershipGroupsList);
+        this.membershipGroupsList = data;
       },
         error => {
           console.log('error = ' + error);
@@ -66,11 +61,11 @@ export class GroupComponent implements OnInit {
     );
   }
 
-  getOwnGroups(): Observable<Groups[]> {
+  getOwnGroups(): Observable<Group[]> {
     const headers = {
       'Authorization': `Bearer ${this.accessToken}`
     };
-    return this.httpClient.get<Groups[]>('http://localhost:8080/groups/own', { headers });
+    return this.httpClient.get<Group[]>('http://localhost:8080/groups/own', { headers });
   }
 
   getMembershipGroups(id): Observable<User> {
@@ -98,8 +93,8 @@ export class GroupComponent implements OnInit {
       );
     }
 
-    getGroupDetails(id: string): Observable<Groups> {
-      return this.httpClient.get<Groups>('http://localhost:8080/groups/' + id);
+    getGroupDetails(id: string): Observable<Group> {
+      return this.httpClient.get<Group>('http://localhost:8080/groups/' + id);
     }
 
     setGroupDetails(id: string) {
@@ -124,5 +119,4 @@ export class GroupComponent implements OnInit {
       });
     }
   }
-
 
