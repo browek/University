@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { UserContentComponent } from './components/user-content/user-content.component';
 import { GroupComponent } from './components/group/group.component';
 import { GroupDetailComponent } from './components/group-detail/group-detail.component';
+import { FilesComponent } from './components/files/files.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { GroupDetailComponent } from './components/group-detail/group-detail.com
     HeaderComponent,
     UserContentComponent,
     GroupComponent,
-    GroupDetailComponent
+    GroupDetailComponent,
+    FilesComponent
   ],
   imports: [
     CommonModule,

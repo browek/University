@@ -4,6 +4,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { GroupComponent } from './components/group/group.component';
+import { FilesComponent } from './components/files/files.component';
 
 const routes: Routes = [
   { path: '', component: UserContentComponent,
@@ -14,6 +15,7 @@ const routes: Routes = [
         // { path: '', component: ProfileComponent },
         ]
       },
+      { path: 'files', component: FilesComponent },
       { path: 'group', children: [
           { path: '', component: GroupComponent },
           { path: ':id', component: GroupDetailComponent },

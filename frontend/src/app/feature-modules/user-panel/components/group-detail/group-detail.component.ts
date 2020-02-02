@@ -4,10 +4,10 @@ import { LoginService } from './../../../main-page/components/login-form/login.s
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, of, zip } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Group } from 'src/app/shared/model/groups/group';
 import { MatSnackBar } from '@angular/material';
-import { switchMap, shareReplay, tap } from 'rxjs/operators';
+import { switchMap, shareReplay, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-group-detail',
@@ -27,17 +27,14 @@ export class GroupDetailComponent implements OnInit {
     shareReplay(0)
   );
 
-  usersList$: Observable<User[]> = zip([this.groupDetails$, this.getUsersList()])
-    .pipe(
-      tap(console.log),
-      switchMap(([group, users]: [Group, User[]]): User[] => {
-        debugger
-        const userList: User[] = users.filter(el => group.users.findIndex(k => k.id === el.id) === -1);
-        
-        return userList;
-      }),
-      tap(console.log)
-    );
+  usersList$: Observable<User[]> = this.groupDetails$.pipe(
+    switchMap(groupDetails => {
+      return this.getUsersList()
+        .pipe(
+          map(usersList => usersList.filter(user => groupDetails.users.findIndex(el => el.id === user.id) === -1))
+        );
+    })
+  );
 
   constructor(
     private httpClient: HttpClient,
