@@ -12,8 +12,13 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
+      <mat-form-field class="filter">
+        <input matInput [formControl]="usersListFilter" placeholder="Wyszukaj">
+      </mat-form-field>
+
+
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="usersList$">
+        <table mat-table [dataSource]="usersDataSource">
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Imię i nazwisko</th>
@@ -67,8 +72,13 @@
 
         </mat-panel-description>
       </mat-expansion-panel-header>
+
+      <mat-form-field class="filter">
+        <input matInput [formControl]="usersListFilter2" placeholder="Wyszukaj">
+      </mat-form-field>
+
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="groupDetails.users">
+        <table mat-table [dataSource]="usersDataSource2" #table2>
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Imię i nazwisko</th>

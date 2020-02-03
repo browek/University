@@ -21,8 +21,12 @@
     </mat-expansion-panel>
   </mat-accordion>
 
+  <mat-form-field class="filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Wyszukaj">
+  </mat-form-field>
+
   <div class="mat-elevation-z8" *ngIf="isTeacher()">
-    <table mat-table [dataSource]="groupsList">
+    <table mat-table [dataSource]="dataSource">
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Nazwa </th>

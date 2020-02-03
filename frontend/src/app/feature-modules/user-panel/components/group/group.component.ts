@@ -3,10 +3,13 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Group } from 'src/app/shared/model/groups/group';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 
 @Component({
@@ -15,6 +18,11 @@ import { Group } from 'src/app/shared/model/groups/group';
   styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  dataSource: MatTableDataSource<Group>;
 
   panelOpenState = false;
   accessToken = '123';
@@ -29,9 +37,13 @@ export class GroupComponent implements OnInit {
     private loginService: LoginService,
     private httpClient: HttpClient,
     private _snackBar: MatSnackBar,
-  ) { }
+  ) {
+    this.dataSource = new MatTableDataSource(this.groupsList);
+  }
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.addGroupForm = new FormGroup({
       name: new FormControl(null, Validators.required),
     });
@@ -39,13 +51,14 @@ export class GroupComponent implements OnInit {
     this.accessToken = this.loginService.getAccessToken();
 
     this.resetGroups();
-
   }
 
   resetGroups() {
     this.getOwnGroups().subscribe(
       data => {
         this.groupsList = data;
+        console.log('data = ' + this.groupsList);
+        this.dataSource = new MatTableDataSource(this.groupsList);
       },
         error => {
           console.log('error = ' + error);
@@ -117,6 +130,14 @@ export class GroupComponent implements OnInit {
       this._snackBar.open(message, action, {
         duration: 3000,
       });
+    }
+
+    applyFilter(filterValue: string) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
     }
   }
 
