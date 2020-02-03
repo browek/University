@@ -9,7 +9,8 @@ import { UserContentComponent } from './components/user-content/user-content.com
 import { GroupComponent } from './components/group/group.component';
 import { GroupDetailComponent } from './components/group-detail/group-detail.component';
 import { FilesComponent } from './components/files/files.component';
-
+import { FileUploadModule } from 'ng2-file-upload';
+import { AngularFileUploaderModule } from 'angular-file-uploader';
 
 @NgModule({
   declarations: [
@@ -19,12 +20,15 @@ import { FilesComponent } from './components/files/files.component';
     UserContentComponent,
     GroupComponent,
     GroupDetailComponent,
-    FilesComponent
+    FilesComponent,
+
   ],
   imports: [
     CommonModule,
     UserPanelRoutingModule,
-    SharedModule
+    SharedModule,
+    FileUploadModule,
+    AngularFileUploaderModule
   ]
 })
 export class UserPanelModule { }

@@ -11,14 +11,16 @@
         </mat-expansion-panel-header>
   
         <form [formGroup]="addFileForm" (ngSubmit)="addFile()">
-          <mat-form-field>
-            <input matInput formControlName="name" placeholder="Nazwa pliku">
-          </mat-form-field>
+
+            <input formControlName="file" type="file"/>
+
           <button mat-raised-button color="primary">Dodaj</button>
         </form>
   
       </mat-expansion-panel>
     </mat-accordion>
-
+    <angular-file-uploader
+      [config]="afuConfig">
+</angular-file-uploader>
   </div>
   
