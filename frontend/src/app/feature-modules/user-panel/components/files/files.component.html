@@ -10,9 +10,9 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
   
-        <form [formGroup]="addFileForm" (ngSubmit)="addFile()">
+        <form [formGroup]="addFileForm" novalidate (ngSubmit)="addFile()">
 
-            <input formControlName="file" type="file"/>
+            <input formControlName="file" type="file" (change)="addFile($event.target.files)"/>
 
           <button mat-raised-button color="primary">Dodaj</button>
         </form>

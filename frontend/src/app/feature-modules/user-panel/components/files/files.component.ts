@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
@@ -15,6 +15,7 @@ export class FilesComponent implements OnInit {
   addFileForm: FormGroup;
   accessToken = this.loginService.getAccessToken();
   uploader: FileUploader;
+  fileToUpload;
 
   afuConfig = {
     multiple: false,
@@ -41,20 +42,26 @@ export class FilesComponent implements OnInit {
 };
 
 
+
   constructor(
     private loginService: LoginService,
     private httpClient: HttpClient,
     private _snackBar: MatSnackBar,
+
   ) {  }
 
   ngOnInit() {
     this.addFileForm = new FormGroup({
       name: new FormControl(null, Validators.required),
     });
+
     this.accessToken = this.loginService.getAccessToken();
   }
 
-  addFile() {
+  addFile(file) {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
     const body = {
       'file': `${this.addFileForm.controls.file}`
     };
@@ -62,8 +69,8 @@ export class FilesComponent implements OnInit {
       'Authorization': `Bearer ${this.accessToken}`,
       'Content-Type' : 'application/x-www-form-urlencoded'
     };
-
-      return this.httpClient.post('http://localhost:8080/files', this.addFileForm.controls.file, { headers }).subscribe(
+      console.log(this.addFileForm);
+      return this.httpClient.post('http://localhost:8080/files', formData, { headers }).subscribe(
         data => {
           this.openSnackBar('Dodano plik', this.addFileForm.controls.name.value);
           this.addFileForm.reset();
@@ -74,6 +81,7 @@ export class FilesComponent implements OnInit {
           }
       );
     }
+
     resetAddFile() {
 
     }
