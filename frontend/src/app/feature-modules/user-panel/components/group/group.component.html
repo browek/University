@@ -60,7 +60,7 @@
   </div>
 
   <div class="mat-elevation-z8" *ngIf="!isTeacher()">
-    <table mat-table [dataSource]="membershipGroupsList">
+    <table mat-table [dataSource]="membershipGroupsList.groups">
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Nazwa </th>
