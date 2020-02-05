@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 
+
 @Component({
   selector: 'app-files',
   templateUrl: './files.component.html',
@@ -15,31 +16,8 @@ export class FilesComponent implements OnInit {
   addFileForm: FormGroup;
   accessToken = this.loginService.getAccessToken();
   uploader: FileUploader;
-  fileToUpload;
-
-  afuConfig = {
-    multiple: false,
-    uploadAPI:  {
-      url: 'http://localhost:8080/files',
-      headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
-        'Content-Type' : 'application/x-www-form-urlencoded'
-      }
-    },
-    theme: 'dragNDrop',
-    hideProgressBar: true,
-    hideResetBtn: true,
-    hideSelectBtn: true,
-    replaceTexts: {
-      selectFileBtn: 'Select Files',
-      resetBtn: 'Reset',
-      uploadBtn: 'Upload',
-      dragNDropBox: 'Drag N Drop',
-      attachPinBtn: 'Attach Files...',
-      afterUploadMsg_success: 'Successfully Uploaded !',
-      afterUploadMsg_error: 'Upload Failed !'
-    }
-};
+  file;
+  filesArray;
 
 
 
@@ -52,29 +30,25 @@ export class FilesComponent implements OnInit {
 
   ngOnInit() {
     this.addFileForm = new FormGroup({
-      name: new FormControl(null, Validators.required),
+      file: new FormControl(null, Validators.required),
     });
 
     this.accessToken = this.loginService.getAccessToken();
+    this.resetFiles();
   }
 
-  addFile(file) {
+  addFile() {
     const formData: FormData = new FormData();
-    formData.append('file', file);
+    formData.append('file', this.file);
 
-    const body = {
-      'file': `${this.addFileForm.controls.file}`
-    };
     const headers = {
-      'Authorization': `Bearer ${this.accessToken}`,
-      'Content-Type' : 'application/x-www-form-urlencoded'
+      'Authorization': `Bearer ${this.accessToken}`
     };
-      console.log(this.addFileForm);
       return this.httpClient.post('http://localhost:8080/files', formData, { headers }).subscribe(
         data => {
-          this.openSnackBar('Dodano plik', this.addFileForm.controls.name.value);
+          this.openSnackBar('Dodano plik', '');
           this.addFileForm.reset();
-          this.resetAddFile();
+          this.resetFiles();
         },
           error => {
             console.log('error = ' + error);
@@ -82,9 +56,33 @@ export class FilesComponent implements OnInit {
       );
     }
 
-    resetAddFile() {
-
+    resetFiles() {
+      const id = this.loginService.getUserDetails().id;
+      this.getFiles(id);
     }
+
+    getFiles(id) {
+      const headers = {
+        'Authorization': `Bearer ${this.accessToken}`
+      };
+      return this.httpClient.get<any>('http://localhost:8080/user/' + id + '/files', { headers }).subscribe(
+        data => {
+          this.filesArray = data;
+        },
+          error => {
+            console.log('error = ' + error);
+          }
+      );
+    }
+    onFileSelect(event): void {
+      if (event.target.files.length > 0) {
+        this.file = event.target.files[0];
+      } else {
+        this.file = undefined;
+      }
+    }
+
+
 
     openSnackBar(message: string, action: string) {
       this._snackBar.open(message, action, {

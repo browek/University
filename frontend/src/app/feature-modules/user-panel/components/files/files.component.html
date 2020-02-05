@@ -12,15 +12,17 @@
   
         <form [formGroup]="addFileForm" novalidate (ngSubmit)="addFile()">
 
-            <input formControlName="file" type="file" (change)="addFile($event.target.files)"/>
+            <input formControlName="file" type="file" (change)="onFileSelect($event)"/>
 
           <button mat-raised-button color="primary">Dodaj</button>
         </form>
   
       </mat-expansion-panel>
     </mat-accordion>
-    <angular-file-uploader
-      [config]="afuConfig">
-</angular-file-uploader>
-  </div>
+
+    <div *ngFor="let f of filesArray">
+      <a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${f.file}" download="{{f.name}}">{{f.name}}</a>
+    </div>
+  
+</div>
   

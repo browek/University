@@ -57,7 +57,6 @@ export class GroupComponent implements OnInit {
     this.getOwnGroups().subscribe(
       data => {
         this.groupsList = data;
-        console.log('data = ' + this.groupsList);
         this.dataSource = new MatTableDataSource(this.groupsList);
       },
         error => {
@@ -95,7 +94,6 @@ export class GroupComponent implements OnInit {
 
       return this.httpClient.post('http://localhost:8080/groups', body, { headers }).subscribe(
         data => {
-          console.log('data = ' + data);
           this.openSnackBar('Dodano grupę', this.addGroupForm.controls.name.value);
           this.addGroupForm.reset();
           this.resetGroups();
@@ -114,7 +112,6 @@ export class GroupComponent implements OnInit {
       this.getGroupDetails(id).subscribe(
         data => {
           this.groupDetails = data;
-          console.log('data = ' + this.groupDetails.id);
         },
           error => {
             console.log('error = ' + error);
