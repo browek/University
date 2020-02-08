@@ -4,12 +4,14 @@ import { LoginService } from './../../../main-page/components/login-form/login.s
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Group } from 'src/app/shared/model/groups/group';
 import { MatSnackBar, MatPaginator, MatSort, MatTableDataSource, MatTable } from '@angular/material';
 import { switchMap, shareReplay, map } from 'rxjs/operators';
 import { DataSource } from '@angular/cdk/table';
 import { CollectionViewer } from '@angular/cdk/collections';
+
+
 
 @Component({
   selector: 'app-group-detail',
@@ -25,8 +27,12 @@ export class GroupDetailComponent implements OnInit {
   groupDetails: Group = <any> { users: [] };
   displayedColumns: string[] = ['name', 'college', 'department', 'subject', 'email', 'button'];
   addUserForm: FormGroup;
+  postForm: FormGroup;
+  commentForm: FormGroup;
   accessToken = '123';
   groupID;
+  postText = '';
+  postsArray;
   usersList: User[] = [];
   groupDetails$: Observable<Group> = this.route.paramMap.pipe(
     switchMap(param => this.getGroupDetails(param.get('id'))),
@@ -48,6 +54,8 @@ export class GroupDetailComponent implements OnInit {
   usersListFilter: FormControl = new FormControl();
   usersListFilter2: FormControl = new FormControl();
 
+  
+
   constructor(
     private httpClient: HttpClient,
     private route: ActivatedRoute,
@@ -56,11 +64,17 @@ export class GroupDetailComponent implements OnInit {
   ) {
    }
 
-   
   ngOnInit() {
     this.accessToken = this.loginService.getAccessToken();
     this.addUserForm = new FormGroup({
       name: new FormControl(null, Validators.required),
+    });
+    this.postForm = new FormGroup({
+      subject: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      text: new FormControl('', Validators.required),
+    });
+    this.commentForm = new FormGroup({
+      comment: new FormControl('', Validators.required),
     });
 
     this.route.paramMap.subscribe((param: Params) => {
@@ -79,6 +93,7 @@ export class GroupDetailComponent implements OnInit {
     this.usersListFilter2.valueChanges.subscribe(val => {
       this.usersDataSource2.filter = val;
     });
+    this.getPosts();
   }
 
   getGroupDetails(id: string): Observable<Group> {
@@ -132,6 +147,67 @@ export class GroupDetailComponent implements OnInit {
       );
     }
 
+    sendPost() {
+      const body = {
+        'title': `${this.postForm.controls.subject.value}`,
+        'content': `${this.postForm.controls.text.value}`,
+        'groupId': `${this.groupID}`
+      };
+      const headers = {
+        'Authorization': `Bearer ${this.accessToken}`
+      };
+      console.log(this.postForm.controls.text.value);
+      if (this.postForm.valid) {
+        return this.httpClient.post('http://localhost:8080/posts', body, { headers }).subscribe(
+          data => {
+            this.openSnackBar('Dodano post', this.postForm.controls.subject.value);
+            this.getPosts();
+            this.postForm.reset();
+          },
+            error => {
+              console.log('error = ' + error);
+            }
+        );
+      }
+    }
+
+    getPosts() {
+      const headers = {
+        'Authorization': `Bearer ${this.accessToken}`
+      };
+      return this.httpClient.get('http://localhost:8080/group/' + this.groupID + '/posts', { headers }).subscribe(
+        data => {
+          this.postsArray = data;
+          console.log(data[0]);
+        },
+          error => {
+            console.log('error = ' + error);
+          }
+      );
+    }
+
+    sendComment(content, postID) {
+      const body = {
+        'content': `${content}`,
+        'postId': `${postID}`
+      };
+      const headers = {
+        'Authorization': `Bearer ${this.accessToken}`
+      };
+      console.log(this.postForm.controls.text.value);
+      if (this.postForm.valid) {
+        return this.httpClient.post('http://localhost:8080/posts', body, { headers }).subscribe(
+          data => {
+            this.getPosts();
+            this.commentForm.reset();
+          },
+            error => {
+              console.log('error = ' + error);
+            }
+        );
+      }
+    }
+
   isTeacher() {
     return this.loginService.isTeacher();
   }
@@ -142,9 +218,5 @@ export class GroupDetailComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-  }
 
-  applyFilter2(filterValue: string) {
-  }
 }

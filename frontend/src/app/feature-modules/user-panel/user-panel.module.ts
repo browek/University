@@ -11,6 +11,7 @@ import { GroupDetailComponent } from './components/group-detail/group-detail.com
 import { FilesComponent } from './components/files/files.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AngularFileUploaderModule } from 'angular-file-uploader';
     UserPanelRoutingModule,
     SharedModule,
     FileUploadModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    OrderModule
   ]
 })
 export class UserPanelModule { }
