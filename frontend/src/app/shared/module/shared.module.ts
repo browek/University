@@ -33,7 +33,8 @@ import {
   MatBadgeModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  
 } from '@angular/material';
 
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';

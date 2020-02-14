@@ -12,6 +12,8 @@ import { FilesComponent } from './components/files/files.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { OrderModule } from 'ngx-order-pipe';
+import { ChatComponent } from './components/chat/chat.component';
+import { ChatWindowComponent } from './components/chat/chat-window/chat-window.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { OrderModule } from 'ngx-order-pipe';
     GroupComponent,
     GroupDetailComponent,
     FilesComponent,
+    ChatComponent,
+    ChatWindowComponent,
 
   ],
   imports: [

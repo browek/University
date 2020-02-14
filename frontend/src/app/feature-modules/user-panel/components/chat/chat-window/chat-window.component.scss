@@ -1,0 +1,52 @@
+.content {
+  width: 100%;
+}
+
+
+.textInput {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+
+  }
+
+  button {
+    margin: 8px;
+
+    i {
+      padding: 8px;
+      font-size: 2rem;
+    }
+  }
+}
+
+.messagesWindow {
+  margin: 10px;
+  // display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .my {
+    text-align: right;
+    .myMessage {
+      display: inline-block;
+      text-align: right;
+      right: 20px;
+      background-color: rgba(0, 0, 255, 0.2);
+      padding: 12px;
+      // margin: 6px;
+    }
+  }
+  .receiver {
+    .receiverMessage {
+    display: inline-block;
+      background-color: rgba(128, 128, 128, 0.2);
+      padding: 12px;
+      // margin: 6px;  
+    }
+  }
+}

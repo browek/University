@@ -54,8 +54,6 @@ export class GroupDetailComponent implements OnInit {
   usersListFilter: FormControl = new FormControl();
   usersListFilter2: FormControl = new FormControl();
 
-  
-
   constructor(
     private httpClient: HttpClient,
     private route: ActivatedRoute,

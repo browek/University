@@ -1,0 +1,30 @@
+<div class="content" *ngIf="(messages$ | async) as messages" >
+  <div class="messagesWindow" *ngFor="let message of messages">
+
+    <div class="receiver ">
+      <div class="receiverMessage"  *ngIf="message.sender.email !== myEmail">
+        {{message.message}}
+      </div>
+    </div>
+    <div class="my">
+      <div class="myMessage" *ngIf="message.sender.email === myEmail">
+        {{message.message}}
+      </div>
+    </div>
+
+  </div>
+
+  
+  <form class="post" [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+  <div class="textInput">
+    <mat-form-field appearance="fill">
+    <textarea matInput placeholder="Napisz wiadomość" formControlName="text"></textarea>
+    </mat-form-field>
+    <button mat-icon-button>
+      <i class="material-icons">
+        send
+      </i>
+    </button>
+  </div>
+  </form>
+</div>
