@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
 import { HttpClient } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
+import { Files } from 'src/app/shared/model/file/files';
+import { shareReplay, switchMap } from 'rxjs/operators';
 
 
 @Component({
@@ -12,13 +14,20 @@ import { FileUploader } from 'ng2-file-upload';
   styleUrls: ['./files.component.scss']
 })
 export class FilesComponent implements OnInit {
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  id = this.loginService.getUserDetails().id;
   addFileForm: FormGroup;
   accessToken = this.loginService.getAccessToken();
   uploader: FileUploader;
   file;
   filesArray;
-
+  filesArrayTable: MatTableDataSource<Files> = new MatTableDataSource([]);
+  filesArrayFilter: FormControl = new FormControl();
+  displayedColumns: string[] = ['name', 'creationDate'];
+  filesArray$ = this.getFiles(this.id).pipe(
+    shareReplay(0)
+  );
 
 
   constructor(
@@ -34,7 +43,17 @@ export class FilesComponent implements OnInit {
     });
 
     this.accessToken = this.loginService.getAccessToken();
-    this.resetFiles();
+
+    this.filesArray$.subscribe(files => {
+      this.filesArrayTable = new MatTableDataSource(files);
+      setTimeout(() => {
+        this.filesArrayTable.sort = this.sort;
+      });
+    });
+
+    this.filesArrayFilter.valueChanges.subscribe(val => {
+      this.filesArrayTable.filter = val;
+    });
   }
 
   addFile() {
@@ -46,9 +65,9 @@ export class FilesComponent implements OnInit {
     };
       return this.httpClient.post('http://localhost:8080/files', formData, { headers }).subscribe(
         data => {
-          this.openSnackBar('Dodano plik', '');
-          this.addFileForm.reset();
-          this.resetFiles();
+          this.setFiles(this.id);
+            this.addFileForm.reset();
+            this.openSnackBar('Dodano plik', '');
         },
           error => {
             console.log('error = ' + error);
@@ -56,16 +75,16 @@ export class FilesComponent implements OnInit {
       );
     }
 
-    resetFiles() {
-      const id = this.loginService.getUserDetails().id;
-      this.getFiles(id);
-    }
 
     getFiles(id) {
       const headers = {
         'Authorization': `Bearer ${this.accessToken}`
       };
-      return this.httpClient.get<any>('http://localhost:8080/user/' + id + '/files', { headers }).subscribe(
+      return this.httpClient.get<Files[]>('http://localhost:8080/user/' + id + '/files', { headers });
+    }
+
+    setFiles(id: string) {
+      this.getFiles(id).subscribe(
         data => {
           this.filesArray = data;
         },
@@ -74,6 +93,7 @@ export class FilesComponent implements OnInit {
           }
       );
     }
+
     onFileSelect(event): void {
       if (event.target.files.length > 0) {
         this.file = event.target.files[0];
@@ -82,12 +102,9 @@ export class FilesComponent implements OnInit {
       }
     }
 
-
-
     openSnackBar(message: string, action: string) {
       this._snackBar.open(message, action, {
         duration: 3000,
       });
     }
-
 }

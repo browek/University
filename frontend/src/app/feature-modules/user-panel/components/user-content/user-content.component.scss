@@ -3,15 +3,18 @@
   grid-template-columns: 1fr 7fr;
   background-color: rgb(240, 241, 255);
   height: 100%;
-}
-
-.content{
-  top: 0;
-  .outlet {
-    // display: grid;
+  // .side-bar {}
+  .content{
     top: 0;
-    background-color: rgb(240, 241, 255);
-    min-height: 600px;
+    .outlet {
+      // display: grid;
+      top: 0;
+      background-color: rgb(240, 241, 255);
+      // min-height: 600px;
+      // height: 100%;
+      padding: 1px;
+    }
   }
 }
+
 

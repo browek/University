@@ -13,6 +13,7 @@ import { CollectionViewer } from '@angular/cdk/collections';
 
 
 
+
 @Component({
   selector: 'app-group-detail',
   templateUrl: './group-detail.component.html',
@@ -91,7 +92,7 @@ export class GroupDetailComponent implements OnInit {
     this.usersListFilter2.valueChanges.subscribe(val => {
       this.usersDataSource2.filter = val;
     });
-    this.getPosts();
+    // this.getPosts();
   }
 
   getGroupDetails(id: string): Observable<Group> {
@@ -145,66 +146,66 @@ export class GroupDetailComponent implements OnInit {
       );
     }
 
-    sendPost() {
-      const body = {
-        'title': `${this.postForm.controls.subject.value}`,
-        'content': `${this.postForm.controls.text.value}`,
-        'groupId': `${this.groupID}`
-      };
-      const headers = {
-        'Authorization': `Bearer ${this.accessToken}`
-      };
-      console.log(this.postForm.controls.text.value);
-      if (this.postForm.valid) {
-        return this.httpClient.post('http://localhost:8080/posts', body, { headers }).subscribe(
-          data => {
-            this.openSnackBar('Dodano post', this.postForm.controls.subject.value);
-            this.getPosts();
-            this.postForm.reset();
-          },
-            error => {
-              console.log('error = ' + error);
-            }
-        );
-      }
-    }
+    // sendPost() {
+    //   const body = {
+    //     'title': `${this.postForm.controls.subject.value}`,
+    //     'content': `${this.postForm.controls.text.value}`,
+    //     'groupId': `${this.groupID}`
+    //   };
+    //   const headers = {
+    //     'Authorization': `Bearer ${this.accessToken}`
+    //   };
+    //   console.log(this.postForm.controls.text.value);
+    //   if (this.postForm.valid) {
+    //     return this.httpClient.post('http://localhost:8080/posts', body, { headers }).subscribe(
+    //       data => {
+    //         this.openSnackBar('Dodano post', this.postForm.controls.subject.value);
+    //         this.getPosts();
+    //         this.postForm.reset();
+    //       },
+    //         error => {
+    //           console.log('error = ' + error);
+    //         }
+    //     );
+    //   }
+    // }
 
-    getPosts() {
-      const headers = {
-        'Authorization': `Bearer ${this.accessToken}`
-      };
-      return this.httpClient.get('http://localhost:8080/group/' + this.groupID + '/posts', { headers }).subscribe(
-        data => {
-          this.postsArray = data;
-          console.log(data[0]);
-        },
-          error => {
-            console.log('error = ' + error);
-          }
-      );
-    }
+    // getPosts() {
+    //   const headers = {
+    //     'Authorization': `Bearer ${this.accessToken}`
+    //   };
+    //   return this.httpClient.get('http://localhost:8080/group/' + this.groupID + '/posts', { headers }).subscribe(
+    //     data => {
+    //       this.postsArray = data;
+    //       console.log(data[0]);
+    //     },
+    //       error => {
+    //         console.log('error = ' + error);
+    //       }
+    //   );
+    // }
 
-    sendComment(content, postID) {
-      const body = {
-        'content': `${content}`,
-        'postId': `${postID}`
-      };
-      const headers = {
-        'Authorization': `Bearer ${this.accessToken}`
-      };
-      console.log(this.postForm.controls.text.value);
-      if (this.postForm.valid) {
-        return this.httpClient.post('http://localhost:8080/posts', body, { headers }).subscribe(
-          data => {
-            this.getPosts();
-            this.commentForm.reset();
-          },
-            error => {
-              console.log('error = ' + error);
-            }
-        );
-      }
-    }
+    // sendComment(content, postID) {
+    //   const body = {
+    //     'content': `${content}`,
+    //     'postId': `${postID}`
+    //   };
+    //   const headers = {
+    //     'Authorization': `Bearer ${this.accessToken}`
+    //   };
+    //   console.log(this.postForm.controls.text.value);
+    //   if (this.postForm.valid) {
+    //     return this.httpClient.post('http://localhost:8080/posts', body, { headers }).subscribe(
+    //       data => {
+    //         this.getPosts();
+    //         this.commentForm.reset();
+    //       },
+    //         error => {
+    //           console.log('error = ' + error);
+    //         }
+    //     );
+    //   }
+    // }
 
   isTeacher() {
     return this.loginService.isTeacher();
@@ -215,6 +216,4 @@ export class GroupDetailComponent implements OnInit {
       duration: 3000,
     });
   }
-
-
 }

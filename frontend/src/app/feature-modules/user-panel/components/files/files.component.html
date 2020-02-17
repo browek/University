@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" *ngIf="(filesArray$ | async) as filesArray">
   <div class="header">Moje pliki</div>
     <mat-accordion>
       <mat-expansion-panel>
@@ -20,9 +20,29 @@
       </mat-expansion-panel>
     </mat-accordion>
 
-    <div *ngFor="let f of filesArray">
-      <a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${f.file}" download="{{f.name}}">{{f.name}}</a>
-    </div>
+    <mat-form-field class="filter">
+      <input matInput [formControl]="filesArrayFilter" placeholder="Wyszukaj">
+    </mat-form-field>
+    
+    <table mat-table  [dataSource]="filesArrayTable" matSort>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nazwa</th>
+        <td mat-cell *matCellDef="let f">
+          <a href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${f.file}" download="{{f.name}}">
+            {{f.name}}
+          </a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="creationDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Data utworzenia</th>
+        <td mat-cell *matCellDef="let f">{{f.creationDate | date:'short'}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   
 </div>
   

@@ -25,3 +25,14 @@
     margin-bottom: 10px;
   }
   
+  .filesArray {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    :last-child {
+      text-align: right;
+    }
+  }
+
+  .filter {
+    width: 100%;
+  }
