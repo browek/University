@@ -14,6 +14,7 @@ import { AngularFileUploaderModule } from 'angular-file-uploader';
 import { OrderModule } from 'ngx-order-pipe';
 import { ChatComponent } from './components/chat/chat.component';
 import { ChatWindowComponent } from './components/chat/chat-window/chat-window.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ChatWindowComponent } from './components/chat/chat-window/chat-window.c
     SharedModule,
     FileUploadModule,
     AngularFileUploaderModule,
-    OrderModule
+    OrderModule,
+    ScrollingModule
   ]
 })
 export class UserPanelModule { }

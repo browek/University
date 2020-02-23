@@ -1,5 +1,7 @@
 .content {
   width: 100%;
+  overflow: scroll;
+  height: 80vh;
 }
 
 
@@ -27,9 +29,7 @@
 
 .messagesWindow {
   margin: 10px;
-  // display: grid;
   grid-template-columns: 1fr 1fr;
-
   .my {
     text-align: right;
     .myMessage {

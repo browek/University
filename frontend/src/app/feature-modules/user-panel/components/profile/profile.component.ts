@@ -7,7 +7,7 @@ import { switchMap, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
 import { FilesService } from 'src/app/shared/service/files.service';
 import { UserService } from 'src/app/shared/service/users.service';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Files } from 'src/app/shared/model/file/files';
 import { FormControl } from '@angular/forms';
 
@@ -18,7 +18,8 @@ import { FormControl } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  id = '123';
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  id;
   accessToken = this.loginService.getAccessToken();
   filesArray;
   filesArray$ = this.route.paramMap.pipe(
@@ -43,10 +44,14 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe((param: Params) => {
+      this.id = param.get('id');
+    });
     this.filesArray$.subscribe(files => {
       this.filesArrayTable = new MatTableDataSource(files);
       setTimeout(() => {
         this.filesArrayTable.sort = this.sort;
+        this.filesArrayTable.paginator = this.paginator;
       });
     });
 

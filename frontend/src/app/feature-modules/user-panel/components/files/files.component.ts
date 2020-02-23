@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
 import { HttpClient } from '@angular/common/http';
-import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { FileUploader } from 'ng2-file-upload';
 import { Files } from 'src/app/shared/model/file/files';
 import { shareReplay, switchMap } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import { shareReplay, switchMap } from 'rxjs/operators';
 })
 export class FilesComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   id = this.loginService.getUserDetails().id;
   addFileForm: FormGroup;
@@ -48,6 +49,7 @@ export class FilesComponent implements OnInit {
       this.filesArrayTable = new MatTableDataSource(files);
       setTimeout(() => {
         this.filesArrayTable.sort = this.sort;
+        this.filesArrayTable.paginator = this.paginator;
       });
     });
 
@@ -65,7 +67,9 @@ export class FilesComponent implements OnInit {
     };
       return this.httpClient.post('http://localhost:8080/files', formData, { headers }).subscribe(
         data => {
-          this.setFiles(this.id);
+          this.filesArray$ = this.getFiles(this.id).pipe(
+            shareReplay(0)
+          );
             this.addFileForm.reset();
             this.openSnackBar('Dodano plik', '');
         },
