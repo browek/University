@@ -7,10 +7,18 @@
     <div class="item">{{profileDetails.lastName}}</div>
     <div class="item">e-mail:</div>
     <div class="item">{{profileDetails.email}}</div>
+    <div class="item">Kierunek:</div>
+    <div class="item">{{profileDetails.subject}}</div>
     <div class="item">Wydział:</div>
     <div class="item">{{profileDetails.department}}</div>
     <div class="item">Uczelnia:</div>
     <div class="item">{{profileDetails.college}}</div>
+  </div>
+  <div class="edit">
+    <button mat-raised-button color="primary" (click)="openEditDialog()">
+      <mat-icon aria-hidden="false">edit</mat-icon>
+      Edytuj profil
+    </button>
   </div>
 </div>
 <div class="files" *ngIf="isTeacher() && !isOwner()">

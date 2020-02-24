@@ -15,6 +15,8 @@ import { OrderModule } from 'ngx-order-pipe';
 import { ChatComponent } from './components/chat/chat.component';
 import { ChatWindowComponent } from './components/chat/chat-window/chat-window.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import { DialogService } from '../main-page/service/dialog.service.impl';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     FilesComponent,
     ChatComponent,
     ChatWindowComponent,
+    EditProfileComponent,
 
   ],
   imports: [
@@ -37,6 +40,12 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     AngularFileUploaderModule,
     OrderModule,
     ScrollingModule
+  ],
+  entryComponents: [
+    EditProfileComponent
+  ],
+  providers: [
+    {provide: 'IDialogService', useClass: DialogService},
   ]
 })
 export class UserPanelModule { }

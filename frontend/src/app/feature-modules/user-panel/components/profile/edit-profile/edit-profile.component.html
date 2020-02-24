@@ -1,0 +1,46 @@
+<h1>Edytuj profil</h1>
+<form [formGroup]="editProfileForm">
+  <div class="tab" *ngIf="(profileDetails$ | async) as profileDetails">
+    <div class="item label">Imię:</div>
+    <mat-form-field class="example-full-width">
+      <mat-label>{{profileDetails.firstName}}</mat-label>
+      <input matInput placeholder="Imię" formControlName="firstName">
+    </mat-form-field>
+    <div class="item label">Nazwisko:</div>
+    <mat-form-field class="example-full-width">
+      <mat-label>{{profileDetails.lastName}}</mat-label>
+      <input matInput placeholder="Nazwisko" formControlName="lastName">
+    </mat-form-field>
+    <div class="item label">e-mail:</div>
+    <mat-form-field class="example-full-width">
+      <mat-label>{{profileDetails.email}}</mat-label>
+      <input matInput placeholder="e-mail" formControlName="email">
+      <mat-error>To nie jest e-mail</mat-error>
+    </mat-form-field>
+    <div class="item label">Kierunek:</div>
+    <mat-form-field class="example-full-width">
+      <mat-label>{{profileDetails.subject}}</mat-label>
+      <input matInput placeholder="Kierunek" formControlName="subject">
+    </mat-form-field>
+    <div class="item label">Wydział:</div>
+    <mat-form-field class="example-full-width">
+      <mat-label>{{profileDetails.department}}</mat-label>
+      <input matInput placeholder="Wydział" formControlName="department">
+    </mat-form-field>
+    <div class="item label">Uczelnia:</div>
+    <mat-form-field class="example-full-width">
+      <mat-label>{{profileDetails.college}}</mat-label>
+      <input matInput placeholder="Uczelnia" formControlName="college">
+    </mat-form-field>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button color="warn" (click)="closeDialog()">
+      <mat-icon aria-hidden="false">clear</mat-icon>
+      Anuluj
+    </button>
+    <button mat-raised-button color="warn" style="background-color: rgb(0, 168, 0);" type="submit"  (click)="editProfile()">
+      <mat-icon aria-hidden="false">done</mat-icon>
+      Zapisz
+    </button>
+  </div>
+</form>

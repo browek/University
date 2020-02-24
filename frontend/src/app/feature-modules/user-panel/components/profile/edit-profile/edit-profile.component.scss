@@ -1,0 +1,24 @@
+h1 {
+    text-align: center;
+}
+
+.tab {
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+    text-align: right;
+}
+
+.label {
+    margin: 20px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+    margin-top: 18px;
+    button {
+        margin: 20px;
+    }
+}

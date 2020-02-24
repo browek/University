@@ -7,9 +7,10 @@ import { switchMap, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
 import { FilesService } from 'src/app/shared/service/files.service';
 import { UserService } from 'src/app/shared/service/users.service';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { Files } from 'src/app/shared/model/file/files';
 import { FormControl } from '@angular/forms';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @Component({
   selector: 'app-profile',
@@ -39,8 +40,7 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     public httpClient: HttpClient,
     private loginService: LoginService,
-    private userService: UserService,
-    private filesService: FilesService
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -83,4 +83,13 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  openEditDialog(): void {
+    const dialogRef = this.dialog.open(EditProfileComponent, {
+      height: '650px',
+      width: '400px',
+      data: {
+
+      }
+    });
+  }
 }
