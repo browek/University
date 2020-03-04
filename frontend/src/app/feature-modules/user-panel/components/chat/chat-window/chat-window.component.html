@@ -1,5 +1,5 @@
 <div class="content" *ngIf="(messages$ | async) as messages" >
-  <div class="messagesWindow" *ngFor="let message of messages">
+  <div class="messagesWindow" *ngFor="let message of messages" #scrollframe>
 
     <div class="receiver ">
       <div class="receiverMessage"  *ngIf="message.sender.email !== myEmail">

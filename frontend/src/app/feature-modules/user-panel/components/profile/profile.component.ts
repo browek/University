@@ -9,7 +9,7 @@ import { FilesService } from 'src/app/shared/service/files.service';
 import { UserService } from 'src/app/shared/service/users.service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { Files } from 'src/app/shared/model/file/files';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @Component({
@@ -35,6 +35,10 @@ export class ProfileComponent implements OnInit {
     switchMap(param => this.getProfileDetails(param.get('id'))),
     shareReplay(0)
   );
+  postsArray;
+  postText = '';
+  postForm: FormGroup;
+  commentForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,

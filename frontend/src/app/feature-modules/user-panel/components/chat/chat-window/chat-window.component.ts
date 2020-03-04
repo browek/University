@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
@@ -14,6 +14,7 @@ import { shareReplay, switchMap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatWindowComponent implements OnInit {
+  @ViewChild('scrollframe', {static: false}) scrollFrame: ElementRef;
   userID;
   messageForm: FormGroup;
   accessToken = '123';
@@ -22,8 +23,10 @@ export class ChatWindowComponent implements OnInit {
     switchMap(param => this.getMessages(param.get('id'))),
     shareReplay(0)
   );
-
+  headerCtrl;
+  scrollContainer: any;
   myEmail = this.loginService.getUserDetails().email;
+  el = document.querySelector('.messagesWindow');
 
   constructor(private route: ActivatedRoute, private loginService: LoginService, public httpClient: HttpClient) { }
 
@@ -35,7 +38,6 @@ export class ChatWindowComponent implements OnInit {
     this.messageForm = new FormGroup({
       text: new FormControl('', Validators.required),
     });
-    console.log(this.userID);
   }
 
   sendMessage() {
