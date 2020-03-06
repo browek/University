@@ -109,25 +109,25 @@
           <mat-panel-description>
             <div>
               Komentarze
-
             </div>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <hr>
-        <div class="form">
-          <mat-form-field class="comment" [formGroup]="commentForm" (ngSubmit)="sendComment(comment, post.id)">
-            <input matInput placeholder="Komentarz" formControlName="comment">
+        <div *ngFor="let comment of post.comments">
+          {{comment.author.firstName}}
+          {{comment.author.lastName}}
+          {{comment.content}}
+        </div>
+        <div class="form" [formGroup]="commentForm">
+          <mat-form-field class="comment" >
+            <input matInput placeholder="Napisz komentarz" formControlName="comment">
           </mat-form-field>
-     
-            <button mat-icon-button>
+            <button mat-icon-button (click)="sendComment(post.id)">
               <i class="material-icons">
                 send
               </i>
             </button>
         </div>
-    
-    
-
       </mat-expansion-panel>
     </mat-accordion>
      

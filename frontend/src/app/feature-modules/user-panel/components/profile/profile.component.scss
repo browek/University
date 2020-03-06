@@ -58,6 +58,11 @@ mat-icon {
 }
 
 mat-card-actions {
+  mat-card-content {
+
+      padding: 200px;
+
+  }
   mat-accordion {
     hr {
       opacity: 0.2;

@@ -120,6 +120,28 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  sendComment(postID) {
+    const body = {
+      'content': `${this.commentForm.controls.comment.value}`,
+      'postId': `${postID}`
+    };
+    const headers = {
+      'Authorization': `Bearer ${this.accessToken}`
+    };
+    if (this.commentForm.valid) {
+      return this.httpClient.post('http://localhost:8080/posts/comment', body, { headers }).subscribe(
+        data => {
+          console.log(body);
+          // this.getPosts();
+          this.commentForm.reset();
+        },
+          error => {
+            console.log(error);
+          }
+      );
+    }
+  }
+
   getPosts(id) {
     const headers = {
       'Authorization': `Bearer ${this.accessToken}`
