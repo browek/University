@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from './../../../main-page/components/login-form/login.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Group } from 'src/app/shared/model/groups/group';
 import { MatSnackBar, MatPaginator, MatSort, MatTableDataSource, MatTable } from '@angular/material';
@@ -60,6 +60,7 @@ export class GroupDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private loginService: LoginService,
     private _snackBar: MatSnackBar,
+    public router: Router,
   ) {
    }
 
@@ -92,7 +93,7 @@ export class GroupDetailComponent implements OnInit {
     this.usersListFilter2.valueChanges.subscribe(val => {
       this.usersDataSource2.filter = val;
     });
-    // this.getPosts();
+    this.getPosts();
   }
 
   getGroupDetails(id: string): Observable<Group> {
@@ -138,7 +139,9 @@ export class GroupDetailComponent implements OnInit {
         data => {
           console.log('data = ' + data);
           this.openSnackBar('Dodano do grupy', this.addUserForm.controls.name.value);
-          this.setGroupDetails(this.groupID);
+          // this.setGroupDetails(this.groupID);
+          // this.setUsersList();
+
           window.location.reload();
         },
           error => {

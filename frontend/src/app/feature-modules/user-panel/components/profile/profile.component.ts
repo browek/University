@@ -7,9 +7,9 @@ import { switchMap, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/feature-modules/main-page/components/login-form/login.service';
 import { FilesService } from 'src/app/shared/service/files.service';
 import { UserService } from 'src/app/shared/service/users.service';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
 import { Files } from 'src/app/shared/model/file/files';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @Component({
@@ -40,11 +40,22 @@ export class ProfileComponent implements OnInit {
   postForm: FormGroup;
   commentForm: FormGroup;
 
+  // postsArray$ = this.getPosts().pipe(
+  //   shareReplay(0)
+  // );
+  postsArray$ = this.route.paramMap.pipe(
+    switchMap(param => this.getPosts(param.get('id'))),
+    shareReplay(0)
+  );
+
+
+
   constructor(
     private route: ActivatedRoute,
     public httpClient: HttpClient,
     private loginService: LoginService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -62,6 +73,13 @@ export class ProfileComponent implements OnInit {
     this.filesArrayFilter.valueChanges.subscribe(val => {
       this.filesArrayTable.filter = val;
     });
+    this.postForm = new FormGroup({
+      subject: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      text: new FormControl('', Validators.required),
+    });
+    this.commentForm = new FormGroup({
+      comment: new FormControl('', Validators.required),
+    });
    }
 
    getProfileDetails(id: string): Observable<User> {
@@ -73,6 +91,49 @@ export class ProfileComponent implements OnInit {
       'Authorization': `Bearer ${this.accessToken}`
     };
     return this.httpClient.get<Files[]>('http://localhost:8080/user/' + id + '/files', { headers });
+  }
+
+  sendPost() {
+    const body = {
+      'title': `${this.postForm.controls.subject.value}`,
+      'content': `${this.postForm.controls.text.value}`,
+      // 'groupId': `${this.groupID}`
+    };
+    const headers = {
+      'Authorization': `Bearer ${this.accessToken}`
+    };
+    console.log(this.postForm.controls.subject.value);
+    console.log(this.postForm.controls.text.value);
+    // console.log(this.groupID);
+    console.log(this.accessToken);
+    if (this.postForm.valid) {
+      return this.httpClient.post('http://localhost:8080/posts', body, { headers }).subscribe(
+        data => {
+          this.openSnackBar('Dodano post', this.postForm.controls.subject.value);
+          // this.getPosts();
+          this.postForm.reset();
+        },
+          error => {
+            console.log(error);
+          }
+      );
+    }
+  }
+
+  getPosts(id) {
+    const headers = {
+      'Authorization': `Bearer ${this.accessToken}`
+    };
+    return this.httpClient.get('http://localhost:8080/user/' + id + '/posts', { headers });
+    // .subscribe(
+    //   data => {
+    //     this.postsArray = data;
+    //     console.log(data[0]);
+    //   },
+    //     error => {
+    //       console.log(error);
+    //     }
+    // );
   }
 
   isTeacher() {
@@ -91,9 +152,12 @@ export class ProfileComponent implements OnInit {
     const dialogRef = this.dialog.open(EditProfileComponent, {
       height: '650px',
       width: '400px',
-      data: {
-
-      }
+      data: { }
+    });
+  }
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
     });
   }
 }

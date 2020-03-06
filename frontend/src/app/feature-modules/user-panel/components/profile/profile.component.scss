@@ -20,12 +20,70 @@
   .filter {
     width: 100%;
   }
+
   table {
     width: 100%;
-    
+
   }
 }
 
 mat-icon {
   margin-right: 10px;
+}
+
+.post-form {
+  width: 88%;
+  margin: auto;
+  display: block;
+  margin-bottom: 40px;
+
+  mat-form-field {
+    width: 98%;
+    margin: auto;
+    display: block;
+  }
+
+  .send-button {
+    margin: auto;
+    width: 94%;
+    display: block;
+  }
+}
+
+.post-card {
+  margin: auto;
+  width: 84%;
+  display: block;
+  margin-bottom: 20px;
+}
+
+mat-card-actions {
+  mat-accordion {
+    hr {
+      opacity: 0.2;
+    }
+    box-shadow: 0px 0px #000000;
+    mat-expansion-panel {
+      box-shadow: 0px -4px 5px -6px #00000070;
+      :hover {
+        background-color: red($color: #000000);
+      }
+    }
+    mat-panel-description {
+      text-align: center;
+      display: block;
+    }
+    .form {
+      display: grid;
+      grid-template-columns: 13fr 1fr;
+      margin: auto;
+      width: 94%;
+      mat-form-field {
+        margin-top: 20px;
+      }
+      button {
+        margin: 20px;
+      }
+    }
+  }
 }
