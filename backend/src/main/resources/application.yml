@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/nu
+    username: postgres
+    password: 287658
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: 69faad01d76b3e
+    password: 75ce43c9e04fa3
+    ssl: no
+    tls: yes
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+simplemail:
+  user:
+    subject:
+      passwordreset: Twoje haslo zostalo zresetowane!
+  confirmation: Twój kod potwierdzający
+token:
+  expire: 24
+  delete: 0 0 0 * * ?
+
+reset-token-url: http://localhost:8090/users/reset?token=
+
+security:
+  clientId: "Cl13nTi@#$d"
+  clientSecret: "cl1eNt$$3cR3t"
+  expiration: 30*60*1000
+  devUserLogin: "dev_login"
+  devUserPassword: "dev_password"
+  devUserEmail: "dev_email@gmail.com"
+  devUserName: "dev_name"
+

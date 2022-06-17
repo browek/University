@@ -1,0 +1,17 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <include file="./db/changelog/changelog-1.1-create-user-entity.xml"/>
+    <include file="./db/changelog/changelog-1.2-inserts.xml"/>
+    <include file="./db/changelog/changelog-1.3-create-group-and-comment-entity.xml"/>
+    <include file="./db/changelog/changelog-1.4-create-password-reset-token-entity.xml"/>
+    <include file="./db/changelog/changelog-1.5-create-file-entity.xml"/>
+    <include file="./db/changelog/changelog-1.6-add-file-to-post.xml"/>
+    <include file="./db/changelog/changelog-1.7-alter-table-upload_file.xml"/>
+    <include file="./db/changelog/changelog-1.8-create-conversation.xml"/>
+    <include file="./db/changelog/changelog-1.9-add-date-column-to-file.xml"/>
+    <include file="./db/changelog/changelog-1.10-alter-table-post.xml"/>
+
+</databaseChangeLog>
